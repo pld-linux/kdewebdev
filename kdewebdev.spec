@@ -1,21 +1,22 @@
-%define		_state		stable
-%define		_ver		3.3.0
+%define		_state		snapshots
+%define		_snap		040921
+%define		_ver		3.3.89
 
-%define         _minlibsevr     9:3.3.0
+%define         _minlibsevr     9:3.3.89
 %define         _minbaseevr     9:3.3.0
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}
-Release:	3
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e29a344f426bb9875f6e731678bc159a
-#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	78c545aecd55fbff5c20fb5fae65a7d0
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -262,7 +263,7 @@ tornando um editor maduro com um bom número de excelentes
 características.
 
 %prep
-%setup -q
+%setup -q -n %{name}
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
@@ -303,13 +304,14 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Development/*,Editors/*,Utilities/*} \
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/* \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 %find_lang klinkstatus	--with-kde
 %find_lang kxsldbg	--with-kde
 %find_lang quanta	--with-kde
 %find_lang kommander	--with-kde
+%find_lang kfilereplace	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -317,12 +319,13 @@ rm -rf $RPM_BUILD_ROOT
 %post	kommander	-p /sbin/ldconfig
 %postun	kommander	-p /sbin/ldconfig
 
-%files kfilereplace
+%files kfilereplace -f kfilereplace.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfilereplace
 %{_libdir}/kde3/libkfilereplacepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so
-%{_desktopdir}/kde/kfilereplacepart.desktop
-%{_datadir}/apps/kfilereplacepart
+%{_desktopdir}/kde/kfilereplace*.desktop
+%{_datadir}/apps/kfilereplace*
 %{_datadir}/services/kfilereplacepart.desktop
 %{_iconsdir}/[!l]*/*/apps/kfilereplace.png
 
@@ -393,7 +396,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/quanta
 %{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
-#%{_datadir}/apps/kafkapart
+%{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
 %{_datadir}/apps/templates
 %{_datadir}/mimelnk/application/x-webprj.desktop
