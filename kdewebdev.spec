@@ -273,7 +273,7 @@ características.
 %setup -q
 %patch100 -p1
 %patch0 -p1
-install %{SOURCE1} kommander/editor/pics
+install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
 	./kimagemapeditor/kimagemapeditor.desktop
