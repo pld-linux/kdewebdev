@@ -129,13 +129,15 @@ TODO.
 
 %build
 cp -f /usr/share/automake/config.sub admin
+
 export UNSERMAKE=/usr/share/unsermake/unsermake 
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--disable-rpath \
+	--enable-final \
 	--with-qt-libraries=%{_libdir}
-#	--enable-final \
 
 %{__make}
 
@@ -195,9 +197,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
 %{_libdir}/libkommanderwidgets.la
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
+%{_datadir}/applnk/.hidden/kmdr-executor.desktop
 %{_datadir}/mimelnk/application/x-kommander.desktop
 %{_desktopdir}/kde/kmdr-editor.desktop
-%{_desktopdir}/kde/kmdr-executor.desktop
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
 
