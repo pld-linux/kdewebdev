@@ -1,4 +1,4 @@
-%define		_state		unstable
+%define		_state		stable
 %define		_ver		3.3.0
 
 %define         _minlibsevr     9:3.3.0
@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
