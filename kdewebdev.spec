@@ -1,7 +1,8 @@
-#
+
 %define		_state		snapshots
 %define		_ver		3.3
-%define		_snap		040218
+%define		_snap		040512
+%define		_packager	adgor
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -10,17 +11,17 @@ Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
 Release:	0.%{_snap}.1
-Epoch:		1
+Epoch:		0.1
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 ##%% Source0-md5:	77f2e92edd4caf70703b7274a461ef42
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= 9:3.2.90
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -123,7 +124,7 @@ TODO.
 TODO.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -134,7 +135,6 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	--disable-rpath \
-	--enable-final \
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
