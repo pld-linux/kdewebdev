@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
-%define		_ver		3.3
-%define		_snap		040517
+%define		_ver		3.2.90
+%define		_snap		040526
 %define		_packager	adgor
 
 Summary:	Web development tools for KDE
@@ -11,12 +11,13 @@ Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}.%{_snap}
 Release:	1
-Epoch:		1
+Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 ##%% Source0-md5:	77f2e92edd4caf70703b7274a461ef42
+Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= 9:3.2.90
@@ -73,6 +74,19 @@ TODO.
 %description kimagemapeditor -l pl
 TODO.
 
+%package klinkstatus
+Summary:	TODO
+Summary(pl):	TODO
+Requires:	kdebase-core >= 9:3.2.90
+Group:		X11/Development/Tools
+Conflicts:	kdewebdev-quanta_be
+
+%description klinkstatus
+TODO.
+
+%description klinkstatus -l pl
+TODO.
+
 %package kommander
 Summary:	TODO
 Summary(pl):	TODO
@@ -111,22 +125,41 @@ TODO.
 %description kxsldbg -l pl
 TODO.
 
-%package quanta_be
-Summary:	TODO
-Summary(pl):	TODO
+%package quanta
+Summary:	Web development tool for KDE
+Summary(es):	Uno editor WEB para KDE
+Summary(pl):	Narzêdzie do tworzenia WWW dla KDE
+Summary(pt_BR):	Um editor web para o KDE
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= 9:3.2.90
+Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
 
-%description quanta_be
-TODO.
+%description quanta
+Quanta Plus is a web development tool for the K Desktop Environment.
+Quanta is designed for quick web development and is rapidly becoming a
+mature editor with a number of great features.
 
-%description quanta_be -l pl
-TODO.
+%description quanta -l es
+Quanta Plus és una herramienta de desarrollo web para KDE. Es
+projetado para rapido desarrollo web e es casi pronto com excelent
+quantidad de caracteristicas.
+
+%description quanta -l pl
+Quanta Plus to narzêdzie do tworzenia WWW dla ¶rodowiska KDE. S³u¿y do
+szybkiego tworzenia stron i staje siê dojrza³ym edytorem z wieloma
+przydatnymi mo¿liwo¶ciami.
+
+%description quanta -l pt_BR
+O Quanta Plus é uma ferramenta para desenvolvimento web para o KDE. É
+projetado para desenvolvimento web rápido e está rapidamente se
+tornando um editor maduro com um bom número de excelentes
+características.
 
 %prep
 %setup -q -n %{name}-%{_snap}
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -164,8 +197,9 @@ echo "Categories=Qt;KDE;Development;" \
 echo "Categories=Qt;KDE;Network;" \
 	>> $RPM_BUILD_ROOT%{_desktopdir}/kde/klinkstatus.desktop
 
-%find_lang kxsldbg --with-kde
-%find_lang quanta_be --with-kde
+%find_lang klinkstatus	--with-kde
+%find_lang kxsldbg	--with-kde
+%find_lang quanta	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -190,6 +224,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
+
+%files klinkstatus -f klinkstatus.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/klinkstatus
+%{_libdir}/kde3/libklinkstatuspart.la
+%attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
+%{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
+%{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
+%{_datadir}/config.kcfg/klinkstatus.kcfg
+%{_datadir}/services/klinkstatus_part.desktop
+%{_desktopdir}/kde/klinkstatus.desktop
+%{_iconsdir}/hicolor/*/apps/klinkstatus.png
 
 %files kommander
 %defattr(644,root,root,755)
@@ -230,29 +276,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
 %{_mandir}/man1/kxsldbg.1*
 
-%files quanta_be -f quanta_be.lang
+%files quanta -f quanta.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quanta_be
+%attr(755,root,root) %{_bindir}/quanta
 %{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
 %{_datadir}/apps/kafkapart
-%{_datadir}/apps/quanta_be
+%{_datadir}/apps/quanta
 %{_datadir}/apps/templates
 %{_datadir}/mimelnk/application/x-webprj.desktop
 %{_datadir}/services/quanta_preview_config.desktop
 %{_datadir}/services/quantadebuggergubed.desktop
 %{_datadir}/servicetypes/quantadebugger.desktop
-%{_desktopdir}/kde/quanta_be.desktop
-%{_iconsdir}/[!l]*/*/apps/quanta_be.png
+%{_desktopdir}/kde/quanta.desktop
+%{_iconsdir}/[!l]*/*/apps/quanta.png
 %{_iconsdir}/[!l]*/*/actions/[!x]*.png
 %{_mandir}/man1/quanta.1*
-# TODO - klinkstatus
-%attr(755,root,root) %{_bindir}/klinkstatus
-%{_libdir}/kde3/libklinkstatuspart.la
-%attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
-%{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
-%{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
-%{_datadir}/config.kcfg/klinkstatus.kcfg
-%{_datadir}/services/klinkstatus_part.desktop
-%{_desktopdir}/kde/klinkstatus.desktop
-%{_iconsdir}/hicolor/*/apps/klinkstatus.png
