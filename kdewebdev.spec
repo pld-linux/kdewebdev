@@ -152,7 +152,7 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/{.hidden/*,Development/*,Editors/*,Utilities/*} \
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Development/*,Editors/*,Utilities/*} \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 echo "Categories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kxsldbg.desktop
 echo -e "\\nCategories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kimagemapeditor.desktop
