@@ -23,7 +23,7 @@ BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	kdesdk-libcvsservice-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:	libxslt-devel >= 1.0.18
-BuildRequires:	libxml2-devel >= 2.6.0
+BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
