@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -25,6 +25,11 @@ BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
+# until some packets provide these:
+Obsoletes:	quanta-doc-css
+Obsoletes:	quanta-doc-html
+Obsoletes:	quanta-doc-javascript
+Obsoletes:	quanta-doc-php
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -190,6 +195,7 @@ Summary:	Development files for kommander
 Summary(pl):	Nag³ówki dla kommandera
 Group:		X11/Development/Libraries
 Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
+Obsoletes:	quanta-devel
 
 %description kommander-devel
 Development files for kommander.
