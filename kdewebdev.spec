@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -191,6 +191,7 @@ Summary(pl):	Nag³ówki dla kommandera
 Group:		X11/Development/Libraries
 Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
 Obsoletes:	quanta-devel
+Provides:	quanta-devel = %{epoch}:%{version}-%{release}
 
 %description kommander-devel
 Development files for kommander.
