@@ -1,8 +1,8 @@
 %define		_state		stable
 %define		_ver		3.3.0
 
-%define         _minlibsevr     9:3.3.0
-%define         _minbaseevr     9:3.3.0
+%define		_minlibsevr	9:3.3.0
+%define		_minbaseevr	9:3.3.0
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
