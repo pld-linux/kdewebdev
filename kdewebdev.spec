@@ -85,7 +85,7 @@ Conflicts:	kdewebdev-quanta_be
 %description klinkstatus
 KLinkStatus is an Open Source tool for checking links in a web page.
 It can search by depth, domain or both. On a domain search it's also
-possible to choose the search depth of URL's with foreign domain. For
+possible to choose the search depth of URLs with foreign domain. For
 performance, it supports several simultaneous connections and try to
 use the same connection for the same sequence of requests.
 
@@ -109,11 +109,11 @@ Kommander is a visual dialog building tool which may be expanded to
 create full mainwindow applications. The primary objective is to
 create as much functionality as possible without using any scripting
 language. This is provided by the following features:
-- Specials - these are prefaced with an "@" like @widgetText. The
+- Specials - these are prefaced with an "@" like @widgetText. They
   offer special features like the value of a widget, functions, aliases,
   global variables and such.
 - DCOP integration - this allows Kommander dialogs to control and be
-  controled in interactions with other KDE applicatins.
+  controlled in interactions with other KDE applications.
 - Signals and Slots - this is a little less intuitive to a new user.
   It is under review for how we process things in the first major
   release. These offer a limited event model for when a button is pushed
@@ -123,10 +123,11 @@ language. This is provided by the following features:
 The central key feature of Kommander dialogs is that you can bind text
 (Kommander Text) to a widget. So if you have @widget1 and @widget2 and
 they are line edits you can set Kommander to show their contents by
-entering @widgetText in their Kommander Text area. Then enter hello in
-@widget1 and world in @widget2. A button can have the string My first
-@widget1 @widget2 program in Kommander If you run this dialog from a
-console it will output My first hello world program in Kommander
+entering @widgetText in their Kommander Text area. Then enter "hello"
+in @widget1 and "world" in @widget2. A button can have the string "My
+first @widget1 @widget2 program in Kommander". If you run this dialog
+from a console it will output "My first hello world program in
+Kommander".
 
 Kommander also seeks to build on standards. It is built on the Qt
 Designer framework and creates *.ui files which it renames to *.kmdr.
@@ -135,15 +136,53 @@ having to rebuild Kommander, by using plugins.
 
 Kommander's other significant factor is being language neutral and
 allowing a Kommander dialog to be extended by using any scripting
-language Kommander positions it's self in a unique position for wide
+language. Kommander positions itself in a unique position for wide
 spread adoption. Multiple script languages can be used in a single
 dialog and applications can be taken over by people using a different
 language than the original developer and gradually converting and
-extending it. New widgets and featurs can be instantly leveraged by
+extending it. New widgets and features can be instantly leveraged by
 all available languages.
 
 %description kommander -l pl
-TODO.
+Kommander to wizualne narzêdzie do tworzenia okien dialogowych, które
+mo¿na rozszerzaæ o tworzenie pe³nych aplikacji z g³ównym oknem.
+Podstawowym celem jest tworzenie jak najwiêkszej funkcjonalno¶ci bez
+u¿ywania ¿adnego jêzyka skryptowego. Maj± to umo¿liwiæ nastêpuj±ce
+cechy:
+- specjalne oznaczenia - poprzedzone znakiem "@", jak @widgetText.
+  Oferuj± one specjalne mo¿liwo¶ci, takie jak warto¶æ widgetu,
+  funkcje, aliasy, zmienne globalne itp.
+- integracja DCOP - umo¿liwia oknom Kommandera sterowanie i bycie
+  sterowanym w interakcji z innymi aplikacjami KDE.
+- Sygna³y i sloty - s± nieco mniej intuicyjne dla nowego u¿ytkownika.
+  Jeszcze nie zosta³o ostatecznie ustalone, jak te rzeczy bêd±
+  przetwarzane w pierwszym wydaniu. Oferuj± one ograniczony model
+  zdarzeniowy dla sytuacji wci¶niêcia przycisku czy zmiany widgetu.
+  W po³±czeniu z "Population Text" s± dosyæ potê¿nym narzêdziem.
+
+Kluczow± cech± okien dialogowych Kommandera jest to, ¿e mo¿na
+przywi±zaæ tekst (Kommander Text) do widgetu. Je¶li mamy @widget1 i
+@widget2, i s± one liniami edycji, mo¿na ustawiæ Kommandera, by
+pokazywa³ ich zawarto¶æ poprzez wpisanie @widgetText w ich polach
+Kommander Text. Potem mo¿na wpisaæ "hello" w @widget1 i "world" w
+@widget2. Przycisk mo¿e mieæ ³añcuch "Mój pierwszy program @widget1
+@widget2 w Kommanderze". Je¶li uruchomimy to okno dialogowe z konsoli,
+wypisze ono "Mój pierwszy program hello world w Kommanderze".
+
+Kommander tak¿e usi³uje byæ oparty na standardach. Jest zbudowany na
+¶rodowisku Qt Designera i tworzy pliki *.ui, którym zmienia nazwy na
+*.kmdr. Mo¿e ³atwo zaimportowaæ dowolny widget KDE, co mo¿na ³atwo
+zrobiæ poprzez u¿ycie wtyczek, bez potrzeby przebudowywania
+Kommandera.
+
+Kolejnym znacz±cym czynnikiem Kommandera jest bycie niezale¿nym od
+jêzyka i mo¿liwo¶æ rozszerzania poprzez u¿ycie dowolnego jêzyka
+skryptowego. Konqueror plasuje siê na unikalnej pozycji do szeroko
+rozpowszechnionej adopcji. W jednym oknie dialogowym mo¿na u¿yæ wiele
+jêzyków skryptowych, a aplikacje mog± byæ przejête przez ludzi
+u¿ywaj±cych innego jêzyka ni¿ oryginalny twórca, a pó¼niej stopniowo
+konwertowane i rozszerzane. Nowe widgety i mo¿liwo¶ci mog± byæ
+natychmiast poddane wszystkim dostêpnym jêzykom.
 
 %package kommander-devel
 Summary:	Development files for kommander
@@ -158,8 +197,8 @@ Development files for kommander.
 Nag³ówki dla kommandera.
 
 %package kxsldbg
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	KXsldbg - graphical debugger and frontend to xsldbg
+Summary(pl):	KXsldbg - graficzny debugger i frontend do xsldbg
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
@@ -169,14 +208,20 @@ KXsldbg is a graphical debugger and a frontend to xsldbg. It allows
 to:
 - set and modify breakpoints
 - display value of expressions
-- display in formation about breakpoints, templates, variables,
+- display information about breakpoints, templates, variables,
   callstack, stylesheets and entities found
 - move around XSL source and XML document via XPaths
 - lookup PUBLIC and SYSTEM ID's in the current XML catalog
 
 %description kxsldbg -l pl
-TODO.
-
+KXsldbg to graficzny debugger i frontend do xsldbg. Pozwana na:
+- ustawianie i modyfikowanie pu³apek
+- wy¶wietlanie warto¶ci wyra¿eñ
+- wy¶wietlanie informacji o znalezionych pu³apkach, szablonach,
+  zmiennych, stosie wywo³añ, arkuszach stylów i encjach
+- przenoszenie ¼ród³a XSL i dokumentu XML poprzez XPaths
+- wyszukiwanie identyfikatorów PUBLIC i SYSTEM w bie¿±cym katalogu XML
+ 
 %package quanta
 Summary:	Web development tool for KDE
 Summary(es):	Uno editor WEB para KDE
