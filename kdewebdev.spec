@@ -1,20 +1,25 @@
-%define		_state		stable
-%define		_ver		3.3.2
 
-%define		_minlibsevr	9:3.3.2
-%define		_minbaseevr	9:3.3.2
+%define		_state		unstable
+%define		_ver		3.3.92
+%define		_snap		050217
+
+%define		_minlibsevr	9:3.3.92.050217
+%define		_minbaseevr	9:3.3.92.050217
+
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}
+Version:	%{_ver}.%{_snap}
+#Version:	%{_ver}
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	582d0f3073d5829b4ab21b03411ba697
+Source0:        http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+#%% Source0-md5:	582d0f3073d5829b4ab21b03411ba697
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -264,23 +269,25 @@ tornando um editor maduro com um bom número de excelentes
 características.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_snap}
+#%setup -q
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
-	quanta/src/quanta.desktop
+	./kimagemapeditor/kimagemapeditor.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
-	quanta/src/quanta_be.desktop
-
-echo "Categories=Qt;KDE;Development;WebDevelopment;" >> ./kimagemapeditor/kimagemapeditor.desktop
-echo "Categories=Qt;KDE;Development;WebDevelopment;" >> ./kxsldbg/kxsldbg.desktop
-echo "Categories=Qt;KDE;Development;WebDevelopment;" >> ./klinkstatus/src/klinkstatus.desktop
-echo "Categories=Qt;KDE;Utility;" >> ./kfilereplace/kfilereplacepart.desktop
+	./klinkstatus/src/klinkstatus.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
+	./kommander/editor/kmdr-editor.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
+	./kxsldbg/kxsldbg.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
+	quanta/src/quanta.desktop
 
 %build
 cp -f %{_datadir}/automake/config.sub admin
 
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+#export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -308,15 +315,13 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
-install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
-
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Development/*,Editors/*,Utilities/*} \
-	$RPM_BUILD_ROOT%{_desktopdir}/kde
-
+%find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
+%find_lang kommander	--with-kde
 %find_lang kxsldbg	--with-kde
 %find_lang quanta	--with-kde
-%find_lang kommander	--with-kde
+%find_lang xsldbg	--with-kde
+cat xsldbg.lang >> kxsldbg.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -324,13 +329,15 @@ rm -rf $RPM_BUILD_ROOT
 %post	kommander	-p /sbin/ldconfig
 %postun	kommander	-p /sbin/ldconfig
 
-%files kfilereplace
+%files kfilereplace -f kfilereplace.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfilereplace
 %{_libdir}/kde3/libkfilereplacepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so
-%{_desktopdir}/kde/kfilereplacepart.desktop
+%{_datadir}/apps/kfilereplace
 %{_datadir}/apps/kfilereplacepart
 %{_datadir}/services/kfilereplacepart.desktop
+%{_desktopdir}/kde/kfilereplace.desktop
 %{_iconsdir}/[!l]*/*/apps/kfilereplace.png
 
 %files kimagemapeditor
@@ -342,7 +349,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
-%{_mandir}/man1/kimagemapeditor.1*
+#%{_mandir}/man1/kimagemapeditor.1*
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -356,7 +363,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
-%{_mandir}/man1/klinkstatus.1*
+#%{_mandir}/man1/klinkstatus.1*
 
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
@@ -374,13 +381,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
-%{_mandir}/man1/kmdr-plugins.1*
+#%{_mandir}/man1/kmdr-plugins.1*
 
 %files kommander-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkommanderplugin.so
-%attr(755,root,root) %{_libdir}/libkommanderwidget.so
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
+%{_libdir}/libkommanderplugin.so
+%{_libdir}/libkommanderwidget.so
+%{_libdir}/libkommanderwidgets.so
 %{_includedir}/kommanderfactory.h
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
