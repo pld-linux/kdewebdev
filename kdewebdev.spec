@@ -1,25 +1,22 @@
 
-%define		_state		unstable
-%define		_ver		3.3.92
-%define		_snap		050217
+%define		_state		stable
+%define		_ver		3.4.0
 
-%define		_minlibsevr	9:3.3.92.050217
-%define		_minbaseevr	9:3.3.92.050217
+%define		_minlibsevr	9:3.4.0
+%define		_minbaseevr	9:3.4.0
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}.%{_snap}
-#Version:	%{_ver}
-Release:	1
+Version:	%{_ver}
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:        http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#%% Source0-md5:	582d0f3073d5829b4ab21b03411ba697
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	a131b9a14c5da402417b43ed8bc61df1
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -269,8 +266,7 @@ tornando um editor maduro com um bom número de excelentes
 características.
 
 %prep
-%setup -q -n %{name}-%{_snap}
-#%setup -q
+%setup -q
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
