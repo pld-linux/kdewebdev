@@ -129,15 +129,13 @@ TODO.
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
 export UNSERMAKE=/usr/share/unsermake/unsermake 
-
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--disable-rpath \
-	--enable-final \
 	--with-qt-libraries=%{_libdir}
+#	--enable-final \
 
 %{__make}
 
@@ -154,7 +152,7 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Applications/*,Development/*,Editors/*} \
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/{.hidden/*,Development/*,Editors/*,Utilities/*} \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 echo "Categories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kxsldbg.desktop
 echo -e "\\nCategories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kimagemapeditor.desktop
