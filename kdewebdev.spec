@@ -15,13 +15,15 @@ License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	b4178f3cadaa33befb6a0f98fbbb99c1
+Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	kdesdk-libcvsservice-devel
 BuildRequires:	libgcrypt-devel
-BuildRequires:	libxslt-devel
+BuildRequires:	libxslt-devel >= 1.0.18
+BuildRequires:	libxml2-devel >= 2.6.0
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
@@ -264,6 +266,7 @@ características.
 
 %prep
 %setup -q
+%patch100 -p1
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
@@ -286,6 +289,7 @@ export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %configure \
 	--disable-rpath \
 	--enable-final \
+	--enable-editors \
 	--with-qt-libraries=%{_libdir} \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
@@ -340,6 +344,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
+%{_mandir}/man1/kimagemapeditor.1*
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -353,6 +358,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
+%{_mandir}/man1/klinkstatus.1*
 
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
@@ -370,6 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
+%{_mandir}/man1/kmdr-plugins.1*
 
 %files kommander-devel
 %defattr(644,root,root,755)
@@ -398,7 +405,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/quanta
 %{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
-#%{_datadir}/apps/kafkapart
+%{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
 %{_datadir}/apps/templates
 %{_datadir}/mimelnk/application/x-webprj.desktop
