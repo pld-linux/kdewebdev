@@ -22,8 +22,8 @@ Source0:        kdesource.tar.gz
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
-BuildRequires:	kdelibs-devel >= 9:3.2.90
-BuildRequires:	kdesdk-libcvsservice-devel
+BuildRequires:	kdelibs-devel >= 9:3.2.3
+BuildRequires:	kdesdk-cervisia
 BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
