@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.3
-%define		_snap		040512
+%define		_snap		040513
 %define		_packager	adgor
 
 Summary:	Web development tools for KDE
@@ -10,8 +10,8 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	0.%{_snap}.1
-Epoch:		0.1
+Release:	0.%{_snap}.0.1
+Epoch:		1
 License:	GPL
 Group:		X11/Development/Tools
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
