@@ -9,8 +9,8 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}
-Release:	0.%{_snap}.0.1
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Development/Tools
