@@ -20,6 +20,7 @@ Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= 9:3.2.90
+BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
