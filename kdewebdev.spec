@@ -25,11 +25,6 @@ BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
-# until some packets provide these:
-Obsoletes:	quanta-doc-css
-Obsoletes:	quanta-doc-html
-Obsoletes:	quanta-doc-javascript
-Obsoletes:	quanta-doc-php
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -239,6 +234,11 @@ Requires:	kdebase-core >= %{_minbasesevr}
 Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
+# until some packets provide these:
+Obsoletes:	quanta-doc-css
+Obsoletes:	quanta-doc-html
+Obsoletes:	quanta-doc-javascript
+Obsoletes:	quanta-doc-php
 
 %description quanta
 Quanta Plus is a web development tool for the K Desktop Environment.
