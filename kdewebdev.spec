@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.3
-%define		_snap		040513
+%define		_snap		040517
 %define		_packager	adgor
 
 Summary:	Web development tools for KDE
@@ -20,6 +20,7 @@ Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= 9:3.2.90
+BuildRequires:	kdesdk-libcvsservice-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
@@ -51,7 +52,7 @@ características.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:3.2.90
 Conflicts:	quanta < 1:3.2.90
 
 %description kfilereplace
@@ -63,8 +64,8 @@ TODO.
 %package kimagemapeditor
 Summary:	TODO
 Summary(pl):	TODO
+Requires:	kdebase-core >= 9:3.2.90
 Group:		X11/Development/Tools
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description kimagemapeditor
 TODO.
@@ -76,7 +77,7 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:3.2.90
 Conflicts:	quanta < 1:3.2.90
 
 %description kommander
@@ -101,7 +102,7 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:3.2.90
 Conflicts:	quanta < 1:3.2.90
 
 %description kxsldbg
@@ -114,7 +115,7 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdebase-core >= 9:3.2.90
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
 
@@ -251,6 +252,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
 %{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
 %{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
+%{_datadir}/config.kcfg/klinkstatus.kcfg
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
