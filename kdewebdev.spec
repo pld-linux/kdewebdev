@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -20,6 +20,7 @@ BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	kdesdk-libcvsservice-devel
+BuildRequires:	libgcrypt-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
