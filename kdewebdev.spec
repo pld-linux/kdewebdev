@@ -1,8 +1,8 @@
 %define		_state		stable
-%define		_ver		3.3.1
+%define		_ver		3.3.2
 
-%define		_minlibsevr	9:3.3.1
-%define		_minbaseevr	9:3.3.1
+%define		_minlibsevr	9:3.3.2
+%define		_minbaseevr	9:3.3.2
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
@@ -14,8 +14,7 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	b4178f3cadaa33befb6a0f98fbbb99c1
-Patch100:	%{name}-branch.diff
+# Source0-md5:	582d0f3073d5829b4ab21b03411ba697
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -226,7 +225,7 @@ KXsldbg to graficzny debugger i frontend do xsldbg. Pozwana na:
   zmiennych, stosie wywo³añ, arkuszach stylów i encjach
 - przenoszenie ¼ród³a XSL i dokumentu XML poprzez XPaths
 - wyszukiwanie identyfikatorów PUBLIC i SYSTEM w bie¿±cym katalogu XML
- 
+
 %package quanta
 Summary:	Web development tool for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -266,7 +265,6 @@ características.
 
 %prep
 %setup -q
-%patch100 -p1
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
