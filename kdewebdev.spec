@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	0.2
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -286,7 +286,11 @@ export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %configure \
 	--disable-rpath \
 	--enable-final \
-	--with-qt-libraries=%{_libdir}
+	--with-qt-libraries=%{_libdir} \
+	%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full}
 
 %{__make}
 
