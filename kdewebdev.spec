@@ -18,6 +18,8 @@ License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	a131b9a14c5da402417b43ed8bc61df1
+Source1:	%{name}-kommandersplash.png
+Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -269,7 +271,9 @@ características.
 
 %prep
 %setup -q
+%patch100 -p1
 %patch0 -p1
+install %{SOURCE1} kommander/editor/pics
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
 	./kimagemapeditor/kimagemapeditor.desktop
@@ -376,6 +380,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
 %{_datadir}/applnk/.hidden/kmdr-executor.desktop
 %{_datadir}/mimelnk/application/x-kommander.desktop
+%{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
