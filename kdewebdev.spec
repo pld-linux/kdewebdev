@@ -1,28 +1,25 @@
-%bcond_with	cvs	# use cvs instead of source0
+%define		_state		unstable
+%define		_ver		3.3.0
+%define		_snap		rc2
 
-%define		_state		snapshots
-%define		_ver		3.2.91
-%define		_snap		040704
-
+%define         _minlibsevr     9:3.3.0
+%define         _minbaseevr     9:3.3.0
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}.%{_snap}
-Release:	1
+Version:	%{_ver}
+Release:	0.%{_snap}.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-%if ! %{with cvs}
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
-%else
-Source0:        kdesource.tar.gz
-%endif
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+# Source0-md5:	c263f04ad7bdc0252b64f7bf155bca6b
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
-BuildRequires:	kdelibs-devel >= 9:3.2.3
+BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	kdesdk-cervisia
 BuildRequires:	libxslt-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
@@ -55,7 +52,7 @@ características.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.90
 
 %description kfilereplace
@@ -67,7 +64,7 @@ TODO.
 %package kimagemapeditor
 Summary:	TODO
 Summary(pl):	TODO
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Group:		X11/Development/Tools
 
 %description kimagemapeditor
@@ -79,7 +76,7 @@ TODO.
 %package klinkstatus
 Summary:	TODO
 Summary(pl):	TODO
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Group:		X11/Development/Tools
 Conflicts:	kdewebdev-quanta_be
 
@@ -93,7 +90,7 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
 
 %description kommander
@@ -118,7 +115,7 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
 
 %description kxsldbg
@@ -133,7 +130,7 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzie do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.3
+Requires:	kdebase-core >= %{_minbasesevr}
 Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
@@ -160,11 +157,7 @@ tornando um editor maduro com um bom número de excelentes
 características.
 
 %prep
-%if ! %{with cvs}
-%setup -q -n %{name}-%{_snap}
-%else
-%setup -q -n %{name} -D
-%endif
+%setup -q -D
 %patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
@@ -187,7 +180,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -296,7 +289,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/quanta
 %{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
-%{_datadir}/apps/kafkapart
+#%{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
 %{_datadir}/apps/templates
 %{_datadir}/mimelnk/application/x-webprj.desktop
