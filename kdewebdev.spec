@@ -167,7 +167,7 @@ características.
 %else
 %setup -q -n %{name} -D
 %endif
-#patch0 -p1
+%patch0 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
 	quanta/src/quanta.desktop
