@@ -135,6 +135,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %configure \
 	--disable-rpath \
+	--enable-final \
 	--with-qt-libraries=%{_libdir}
 
 %{__make}
