@@ -14,8 +14,8 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	e29a344f426bb9875f6e731678bc159a
 #Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
-# Source0-md5:	c263f04ad7bdc0252b64f7bf155bca6b
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
