@@ -27,6 +27,7 @@ BuildRequires:	libgcrypt-devel
 BuildRequires:	libxslt-devel >= 1.0.18
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -282,9 +283,9 @@ características.
 	quanta/src/quanta.desktop
 
 %build
-cp -f %{_datadir}/automake/config.sub admin
+cp -f /usr/share/automake/config.sub admin
 
-#export UNSERMAKE=%{_datadir}/unsermake/unsermake
+#export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
