@@ -180,6 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libkimagemapeditor.la
 %attr(755,root,root) %{_libdir}/kde3/libkimagemapeditor.so
 %{_datadir}/apps/kimagemapeditor
+%{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
 
@@ -212,6 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kxsldbg -f kxsldbg.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kxsldbg
+%attr(755,root,root) %{_bindir}/xsldbg
 %{_libdir}/kde3/libkxsldbgpart.la
 %attr(755,root,root) %{_libdir}/kde3/libkxsldbgpart.so
 %{_datadir}/apps/kxsldbg
@@ -224,10 +226,25 @@ rm -rf $RPM_BUILD_ROOT
 %files quanta_be -f quanta_be.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quanta_be
+%{_libdir}/kde3/quantadebuggergubed.la
+%attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
 %{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta_be
 %{_datadir}/apps/templates
+%{_datadir}/mimelnk/application/x-webprj.desktop
+%{_datadir}/services/quanta_preview_config.desktop
+%{_datadir}/services/quantadebuggergubed.desktop
+%{_datadir}/servicetypes/quantadebugger.desktop
 %{_desktopdir}/kde/quanta_be.desktop
 %{_iconsdir}/[!l]*/*/apps/quanta_be.png
 %{_iconsdir}/[!l]*/*/actions/[!x]*.png
 %{_mandir}/man1/quanta.1*
+# TODO - klinkstatus
+%attr(755,root,root) %{_bindir}/klinkstatus
+%{_libdir}/kde3/libklinkstatuspart.la
+%attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
+%{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
+%{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
+%{_datadir}/services/klinkstatus_part.desktop
+%{_desktopdir}/kde/klinkstatus.desktop
+%{_iconsdir}/hicolor/*/apps/klinkstatus.png
