@@ -1,8 +1,8 @@
 %bcond_with	cvs	# use cvs instead of source0
+
 %define		_state		snapshots
 %define		_ver		3.2.91
-%define		_snap		040702
-%define		_packager	djurban
+%define		_snap		040704
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -15,9 +15,7 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 %if ! %{with cvs}
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	77f2e92edd4caf70703b7274a461ef42
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
 %else
 Source0:        kdesource.tar.gz
 %endif
