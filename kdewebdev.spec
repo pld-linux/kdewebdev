@@ -156,8 +156,12 @@ install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
 
 mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Development/*,Editors/*,Utilities/*} \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
-echo "Categories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kxsldbg.desktop
-echo -e "\\nCategories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kimagemapeditor.desktop
+echo "Categories=Qt;KDE;Development;" \
+	>> $RPM_BUILD_ROOT%{_desktopdir}/kde/kxsldbg.desktop
+echo "Categories=Qt;KDE;Development;" \
+	>> $RPM_BUILD_ROOT%{_desktopdir}/kde/kimagemapeditor.desktop
+echo "Categories=Qt;KDE;Network;" \
+	>> $RPM_BUILD_ROOT%{_desktopdir}/kde/klinkstatus.desktop
 
 %find_lang kxsldbg --with-kde
 %find_lang quanta_be --with-kde
