@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -54,6 +54,7 @@ Summary(pl):	Rozbudowane narzêdzie do zamiany tekstu
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.90
+Obsoletes:	kdesdk-kfilereplace
 
 %description kfilereplace
 KFileReplace is a KDE utility which replace some strings with others
