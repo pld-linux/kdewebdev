@@ -55,7 +55,7 @@ características.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
 Conflicts:	quanta < 1:3.2.90
 
 %description kfilereplace
@@ -67,7 +67,7 @@ TODO.
 %package kimagemapeditor
 Summary:	TODO
 Summary(pl):	TODO
-Requires:	kdebase-core >= 9:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
 Group:		X11/Development/Tools
 
 %description kimagemapeditor
@@ -79,7 +79,7 @@ TODO.
 %package klinkstatus
 Summary:	TODO
 Summary(pl):	TODO
-Requires:	kdebase-core >= 9:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
 Group:		X11/Development/Tools
 Conflicts:	kdewebdev-quanta_be
 
@@ -93,8 +93,8 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.90
-Conflicts:	quanta < 1:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
+Conflicts:	quanta < 1:3.2.3
 
 %description kommander
 TODO.
@@ -118,8 +118,8 @@ TODO.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.90
-Conflicts:	quanta < 1:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
+Conflicts:	quanta < 1:3.2.3
 
 %description kxsldbg
 TODO.
@@ -133,7 +133,7 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzie do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Group:		X11/Development/Tools
-Requires:	kdebase-core >= 9:3.2.90
+Requires:	kdebase-core >= 9:3.2.3
 Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
