@@ -1,21 +1,20 @@
 %define		_state		stable
-%define		_ver		3.3.0
+%define		_ver		3.3.1
 
-%define		_minlibsevr	9:3.3.0
-%define		_minbaseevr	9:3.3.0
+%define		_minlibsevr	9:3.3.1
+%define		_minbaseevr	9:3.3.1
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	4
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e29a344f426bb9875f6e731678bc159a
-#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	b4178f3cadaa33befb6a0f98fbbb99c1
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
