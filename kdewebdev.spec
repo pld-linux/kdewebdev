@@ -1,7 +1,7 @@
 #
 %define		_state		snapshots
-%define		_ver		3.2.90
-%define		_snap		040110
+%define		_ver		3.3
+%define		_snap		040218
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -9,7 +9,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	0.1
+Release:	0.%{_snap}.1
 Epoch:		1
 License:	GPL
 Group:		X11/Development/Tools
@@ -18,9 +18,10 @@ Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 ##%% Source0-md5:	77f2e92edd4caf70703b7274a461ef42
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
-BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	kdelibs-devel >= 9:3.2.90
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
+BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,18 +45,6 @@ projetado para desenvolvimento web rápido e está rapidamente se
 tornando um editor maduro com um bom número de excelentes
 características.
 
-%package devel
-Summary:	Header files for Quanta libraries
-Summary(pl):	Pliki nag³ówkowe bibliotek Quanty
-Group:		X11/Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-
-%description devel
-Header files for Quanta libraries.
-
-%description devel -l pl
-Pliki nag³ówkowe bibliotek Quanty.
-
 %package kfilereplace
 Summary:	TODO
 Summary(pl):	TODO
@@ -67,6 +56,18 @@ Conflicts:	quanta < 1:3.2.90
 TODO.
 
 %description kfilereplace -l pl
+TODO.
+
+%package kimagemapeditor
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Tools
+#Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description kimagemapeditor
+TODO.
+
+%description kimagemapeditor -l pl
 TODO.
 
 %package kommander
@@ -82,6 +83,18 @@ TODO.
 %description kommander -l pl
 TODO.
 
+%package kommander-devel
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Development/Libraries
+Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
+
+%description kommander-devel
+TODO.
+
+%description kommander-devel -l pl
+TODO.
+
 %package kxsldbg
 Summary:	TODO
 Summary(pl):	TODO
@@ -95,17 +108,18 @@ TODO.
 %description kxsldbg -l pl
 TODO.
 
-%package quanta
+%package quanta_be
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Development/Tools
 #Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	quanta
+Obsoletes:	quanta-doc
 
-%description quanta
+%description quanta_be
 TODO.
 
-%description quanta -l pl
+%description quanta_be -l pl
 TODO.
 
 %prep
@@ -138,83 +152,82 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Development/*,Utilities/*} \
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/{Applications/*,Development/*,Editors/*} \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 echo "Categories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kxsldbg.desktop
-echo "Categories=Qt;KDE;Utility;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kfilereplacepart.desktop
+echo -e "\\nCategories=Qt;KDE;Development;" >> $RPM_BUILD_ROOT%{_desktopdir}/kde/kimagemapeditor.desktop
 
 %find_lang kxsldbg --with-kde
-%find_lang quanta --with-kde
+%find_lang quanta_be --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
-
-%files devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
-%attr(755,root,root) %{_libdir}/libqtnotfier.so
-%attr(755,root,root) %{_libdir}/libxsldbg.so
-%{_includedir}/kxsldbg_partif.h
-%{_includedir}/kxsldbgif.h
+%post	kommander	-p /sbin/ldconfig
+%postun	kommander	-p /sbin/ldconfig
 
 %files kfilereplace
 %defattr(644,root,root,755)
+%{_libdir}/kde3/libkfilereplacepart.la
+%attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so
+%{_datadir}/apps/kfilereplacepart
+%{_datadir}/services/kfilereplacepart.desktop
+%{_iconsdir}/[!l]*/*/apps/kfilereplace.png
+
+%files kimagemapeditor
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kimagemapeditor
+%{_libdir}/kde3/libkimagemapeditor.la
+%attr(755,root,root) %{_libdir}/kde3/libkimagemapeditor.so
+%{_datadir}/apps/kimagemapeditor
+%{_desktopdir}/kde/kimagemapeditor.desktop
+%{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
 
 %files kommander
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmdr-editor
+%attr(755,root,root) %{_bindir}/kmdr-executor
+%attr(755,root,root) %{_bindir}/kmdr-plugins
+%{_libdir}/libkommanderplugin.la
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
+%{_libdir}/libkommanderwidget.la
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
+%{_libdir}/libkommanderwidgets.la
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
+%{_datadir}/mimelnk/application/x-kommander.desktop
+%{_desktopdir}/kde/kmdr-editor.desktop
+%{_desktopdir}/kde/kmdr-executor.desktop
+%{_mandir}/man1/kmdr-editor.1*
+%{_mandir}/man1/kmdr-executor.1*
+
+%files kommander-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
+%{_includedir}/kommanderfactory.h
+%{_includedir}/kommanderplugin.h
+%{_includedir}/kommanderwidget.h
 
 %files kxsldbg -f kxsldbg.lang
 %defattr(644,root,root,755)
-
-%files quanta -f quanta.lang
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/quanta
-
-%{_libdir}/libkommanderwidgets.la
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
-%{_libdir}/libqtnotfier.la
-%attr(755,root,root) %{_libdir}/libqtnotfier.so.*.*.*
-%{_libdir}/libxsldbg.la
-%attr(755,root,root) %{_libdir}/libxsldbg.so.*.*.*
-
-%{_libdir}/kde3/libkfilereplacepart.la
-%attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so*
+%attr(755,root,root) %{_bindir}/kxsldbg
 %{_libdir}/kde3/libkxsldbgpart.la
-%attr(755,root,root) %{_libdir}/kde3/libkxsldbgpart.so*
-
-#%dir %{_libdir}/quanta
-#%dir %{_libdir}/quanta/plugins
-#%attr(755,root,root) %{_libdir}/quanta/plugins/weblint
-%{_datadir}/apps/kafkapart
-%dir %{_datadir}/apps/kfilereplacepart
-%{_datadir}/apps/kfilereplacepart/*
-%dir %{_datadir}/apps/kxsldbg
-%{_datadir}/apps/kxsldbg/kxsldbg_shell.rc
-%dir %{_datadir}/apps/kxsldbgpart
-%{_datadir}/apps/kxsldbgpart/kxsldbg_part.rc
-%dir %{_datadir}/apps/quanta
-
-%{_datadir}/apps/quanta/csseditor
-%{_datadir}/apps/quanta/dtep
-#%{_datadir}/apps/quanta/plugins
-%{_datadir}/apps/quanta/scripts
-%{_datadir}/apps/quanta/templates
-%{_datadir}/apps/quanta/toolbar
-%{_datadir}/apps/quanta/toolbars
-%{_datadir}/apps/quanta/actions.rc
-%{_datadir}/apps/quanta/chars
-%{_datadir}/apps/quanta/plugins.rc
-%{_datadir}/apps/quanta/quantaui.rc
-%{_datadir}/apps/quanta/tips
-# !!!
-%{_datadir}/apps/templates
-#
-%{_datadir}/mimelnk/application/x-kommander.desktop
-%{_datadir}/services/kfilereplacepart.desktop
+%attr(755,root,root) %{_libdir}/kde3/libkxsldbgpart.so
+%{_datadir}/apps/kxsldbg
+%{_datadir}/apps/kxsldbgpart
 %{_datadir}/services/kxsldbg_part.desktop
-%{_desktopdir}/kde/*
-%{_iconsdir}/[!l]*/*/*/*
-%{_mandir}/man1/*.1*
+%{_desktopdir}/kde/kxsldbg.desktop
+%{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
+%{_mandir}/man1/kxsldbg.1*
+
+%files quanta_be -f quanta_be.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/quanta_be
+%{_datadir}/apps/kafkapart
+%{_datadir}/apps/quanta_be
+%{_datadir}/apps/templates
+%{_desktopdir}/kde/quanta_be.desktop
+%{_iconsdir}/[!l]*/*/apps/quanta_be.png
+%{_iconsdir}/[!l]*/*/actions/[!x]*.png
+%{_mandir}/man1/quanta.1*
