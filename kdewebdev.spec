@@ -239,6 +239,15 @@ Summary(pl):	Narzêdzie do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
+# Applications required for full functionality:
+%if 0
+Requires:	kdesdk-kompare
+Requires:	kdewebdev-kfilereplace
+Requires:	kdewebdev-kommander
+Requires:	kdewebdev-kxsldbg
+Requires:	kdewebdev-kimagemapeditor
+Requires:	kdewebdev-klinkstatus
+%endif
 Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
 Obsoletes:	quanta-doc
