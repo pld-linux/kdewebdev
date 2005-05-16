@@ -1,3 +1,6 @@
+# TODO
+# - missing icon: kxsldbg, kommander
+# - missing icon for 'Webdesign' kde menu (not this package related, but still)
 
 %define		_state		stable
 %define		_kdever		3.4
