@@ -3,11 +3,11 @@
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
 
 %define		_state		stable
-%define		_kdever		3.4
-%define		_ver		3.4.0
+%define		_kdever		3.4.1
+%define		_ver		3.4.1
 
-%define		_minlibsevr	9:3.4.0
-%define		_minbaseevr	9:3.4.0
+%define		_minlibsevr	9:3.4.1
+%define		_minbaseevr	9:3.4.1
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -15,12 +15,12 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a131b9a14c5da402417b43ed8bc61df1
+# Source0-md5:	d5c9e5c72731aead950ab29a4d620af8
 Source1:	%{name}-kommandersplash.png
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
@@ -283,7 +283,7 @@ características.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
@@ -363,7 +363,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
-#%{_mandir}/man1/kimagemapeditor.1*
+%{_mandir}/man1/kimagemapeditor.1*
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -377,7 +377,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
-#%{_mandir}/man1/klinkstatus.1*
+%{_mandir}/man1/klinkstatus.1*
 
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
@@ -396,7 +396,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
-#%{_mandir}/man1/kmdr-plugins.1*
+%{_mandir}/man1/kmdr-plugins.1*
 
 %files kommander-devel
 %defattr(644,root,root,755)
