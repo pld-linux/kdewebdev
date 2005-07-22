@@ -3,11 +3,11 @@
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
 
 %define		_state		stable
-%define		_kdever		3.4.1
-%define		_ver		3.4.1
+%define		_kdever		3.4.2
+%define		_ver		3.4.2
 
-%define		_minlibsevr	9:3.4.1
-%define		_minbaseevr	9:3.4.1
+%define		_minlibsevr	9:3.4.2
+%define		_minbaseevr	9:3.4.2
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -15,12 +15,12 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d5c9e5c72731aead950ab29a4d620af8
+# Source0-md5:	99dbd9bf9b2a1451544b35f73efe7dba
 Source1:	%{name}-kommandersplash.png
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
