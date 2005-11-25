@@ -1,13 +1,12 @@
 # TODO
-# - missing icon: kxsldbg, kommander
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
 
 %define		_state		stable
-%define		_kdever		3.4.3
-%define		_ver		3.4.3
+%define		_kdever		3.5
+%define		_ver		3.5.0
 
-%define		_minlibsevr	9:3.4.3
-%define		_minbaseevr	9:3.4.3
+%define		_minlibsevr	9:3.5.0
+%define		_minbaseevr	9:3.5.0
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -20,7 +19,7 @@ Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e3750c242404449ac9640fbf5ed7d042
+# Source0-md5:	c2ab1f88b43cf409a8ccaca38ba37650
 Source1:	%{name}-kommandersplash.png
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
@@ -394,6 +393,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/x-kommander.desktop
 %{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
 %{_desktopdir}/kde/kmdr-editor.desktop
+%{_iconsdir}/crystalsvg/*/apps/kommander.png
 %{_mandir}/man1/kmdr-editor.1*
 %{_mandir}/man1/kmdr-executor.1*
 %{_mandir}/man1/kmdr-plugins.1*
@@ -406,6 +406,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kommanderfactory.h
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
+%{_includedir}/kommander_export.h
 
 %files kxsldbg -f kxsldbg.lang
 %defattr(644,root,root,755)
@@ -425,12 +426,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/quanta
 %{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
+%{_libdir}/kde3/quantadebuggerdbgp.la
+%attr(755,root,root) %{_libdir}/kde3/quantadebuggerdbgp.so
 %{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
-%{_datadir}/apps/templates
 %{_datadir}/mimelnk/application/x-webprj.desktop
 %{_datadir}/services/quanta_preview_config.desktop
 %{_datadir}/services/quantadebuggergubed.desktop
+%{_datadir}/services/quantadebuggerdbgp.desktop
 %{_datadir}/servicetypes/quantadebugger.desktop
 %{_desktopdir}/kde/quanta.desktop
 %{_iconsdir}/[!l]*/*/apps/quanta.png
