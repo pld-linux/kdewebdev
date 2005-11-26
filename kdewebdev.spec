@@ -14,12 +14,12 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c2ab1f88b43cf409a8ccaca38ba37650
+# Source0-md5:	58bb4d025fa125c5ad0dc43769ba9786
 Source1:	%{name}-kommandersplash.png
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
