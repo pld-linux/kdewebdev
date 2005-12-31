@@ -14,7 +14,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -282,7 +282,7 @@ características.
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p0
 %patch0 -p1
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
