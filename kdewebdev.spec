@@ -2,11 +2,11 @@
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
 
 %define		_state		stable
-%define		_kdever		3.5
-%define		_ver		3.5.0
+%define		_kdever		3.5.1
+%define		_ver		3.5.1
 
-%define		_minlibsevr	9:3.5.0
-%define		_minbaseevr	9:3.5.0
+%define		_minlibsevr	9:3.5.1
+%define		_minbaseevr	9:3.5.1
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
@@ -14,12 +14,12 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	%{_ver}
-Release:	3
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	58bb4d025fa125c5ad0dc43769ba9786
+# Source0-md5:	0faea4e8088005ae60f58b21c60b32ea
 Source1:	%{name}-kommandersplash.png
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
@@ -282,7 +282,7 @@ características.
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
