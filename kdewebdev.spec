@@ -306,7 +306,7 @@ cp -f /usr/share/automake/config.sub admin
 
 %configure \
 	--disable-rpath \
-	--enable-final \
+	--disable-final \
 	--enable-editors \
 	--with-qt-libraries=%{_libdir} \
 %if "%{_lib}" == "lib64"
