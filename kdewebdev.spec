@@ -26,8 +26,8 @@ BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	kdesdk-libcvsservice-devel >= 3:3.4.0
 BuildRequires:	libgcrypt-devel
-BuildRequires:	libxslt-devel >= 1.0.18
 BuildRequires:	libxml2-devel >= 1:2.6.0
+BuildRequires:	libxslt-devel >= 1.0.18
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildConflicts:	quanta
@@ -59,8 +59,8 @@ Summary:	A powerful string replacer
 Summary(pl):	Rozbudowane narzêdzie do zamiany tekstu
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
-Conflicts:	quanta < 1:3.2.90
 Obsoletes:	kdesdk-kfilereplace
+Conflicts:	quanta < 1:3.2.90
 
 %description kfilereplace
 KFileReplace is a KDE utility which replace some strings with others
@@ -73,8 +73,8 @@ ilo¶ci plików, podczas jednej operacji.
 %package kimagemapeditor
 Summary:	An HTML image map editor
 Summary(pl):	Edytor map obrazów w HTML
-Requires:	kdebase-core >= %{_minbasesevr}
 Group:		X11/Development/Tools
+Requires:	kdebase-core >= %{_minbasesevr}
 
 %description kimagemapeditor
 An HTML image map editor.
@@ -83,10 +83,10 @@ An HTML image map editor.
 Edytor map obrazów w HTML.
 
 %package klinkstatus
-Summary:	Link checker for KDE.
+Summary:	Link checker for KDE
 Summary(pl):	Program do sprawdzania odno¶ników pod KDE.
-Requires:	kdebase-core >= %{_minbasesevr}
 Group:		X11/Development/Tools
+Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	kdewebdev-quanta_be
 
 %description klinkstatus
@@ -157,15 +157,15 @@ Podstawowym celem jest tworzenie jak najwiêkszej funkcjonalno¶ci bez
 u¿ywania ¿adnego jêzyka skryptowego. Maj± to umo¿liwiæ nastêpuj±ce
 cechy:
 - specjalne oznaczenia - poprzedzone znakiem "@", jak @widgetText.
-  Oferuj± one specjalne mo¿liwo¶ci, takie jak warto¶æ widgetu,
-  funkcje, aliasy, zmienne globalne itp.
+  Oferuj± one specjalne mo¿liwo¶ci, takie jak warto¶æ widgetu, funkcje,
+  aliasy, zmienne globalne itp.
 - integracja DCOP - umo¿liwia oknom Kommandera sterowanie i bycie
   sterowanym w interakcji z innymi aplikacjami KDE.
 - Sygna³y i sloty - s± nieco mniej intuicyjne dla nowego u¿ytkownika.
   Jeszcze nie zosta³o ostatecznie ustalone, jak te rzeczy bêd±
   przetwarzane w pierwszym wydaniu. Oferuj± one ograniczony model
-  zdarzeniowy dla sytuacji wci¶niêcia przycisku czy zmiany widgetu.
-  W po³±czeniu z "Population Text" s± dosyæ potê¿nym narzêdziem.
+  zdarzeniowy dla sytuacji wci¶niêcia przycisku czy zmiany widgetu. W
+  po³±czeniu z "Population Text" s± dosyæ potê¿nym narzêdziem.
 
 Kluczow± cech± okien dialogowych Kommandera jest to, ¿e mo¿na
 przywi±zaæ tekst (Kommander Text) do widgetu. Je¶li mamy @widget1 i
@@ -178,9 +178,9 @@ wypisze ono "Mój pierwszy program hello world w Kommanderze".
 
 Kommander tak¿e usi³uje byæ oparty na standardach. Jest zbudowany na
 ¶rodowisku Qt Designera i tworzy pliki *.ui, którym zmienia nazwy na
-*.kmdr. Mo¿e ³atwo zaimportowaæ dowolny widget KDE, co mo¿na ³atwo
-zrobiæ poprzez u¿ycie wtyczek, bez potrzeby przebudowywania
-Kommandera.
+- *.kmdr. Mo¿e ³atwo zaimportowaæ dowolny widget KDE, co mo¿na ³atwo
+  zrobiæ poprzez u¿ycie wtyczek, bez potrzeby przebudowywania
+  Kommandera.
 
 Kolejnym znacz±cym czynnikiem Kommandera jest bycie niezale¿nym od
 jêzyka i mo¿liwo¶æ rozszerzania poprzez u¿ycie dowolnego jêzyka
@@ -196,8 +196,8 @@ Summary:	Development files for kommander
 Summary(pl):	Nag³ówki dla kommandera
 Group:		X11/Development/Libraries
 Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
-Obsoletes:	quanta-devel
 Provides:	quanta-devel = %{epoch}:%{version}-%{release}
+Obsoletes:	quanta-devel
 
 %description kommander-devel
 Development files for kommander.
@@ -242,10 +242,10 @@ Requires:	kdebase-core >= %{_minbasesevr}
 %if 0
 Requires:	kdesdk-kompare
 Requires:	kdewebdev-kfilereplace
-Requires:	kdewebdev-kommander
-Requires:	kdewebdev-kxsldbg
 Requires:	kdewebdev-kimagemapeditor
 Requires:	kdewebdev-klinkstatus
+Requires:	kdewebdev-kommander
+Requires:	kdewebdev-kxsldbg
 %endif
 Obsoletes:	kdewebdev-quanta_be
 Obsoletes:	quanta
