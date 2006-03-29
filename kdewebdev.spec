@@ -1,27 +1,25 @@
 # TODO
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
+# - locolor icons?
 
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
-
-%define		_minlibsevr	9:3.5.1
-%define		_minbaseevr	9:3.5.1
+%define		_minlibsevr	9:%{version}
+%define		_minbaseevr	9:%{version}
 
 Summary:	Web development tools for KDE
 Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	%{_ver}
+Version:	3.5.2
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	0faea4e8088005ae60f58b21c60b32ea
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	ddd2ded8178f7c4d094d73e95075e7fb
 Source1:	%{name}-kommandersplash.png
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -32,7 +30,6 @@ BuildRequires:	libxslt-devel >= 1.0.18
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-#BuildRequires:	unsermake >= 040511
 BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -299,9 +296,6 @@ install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
-#export UNSERMAKE=/usr/share/unsermake/unsermake
-
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -325,8 +319,10 @@ rm -rf $RPM_BUILD_ROOT
 	kde_libs_htmldir=%{_kdedocdir}
 
 # Debian manpages
+%if 0
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+%endif
 
 %find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
@@ -362,7 +358,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
-%{_mandir}/man1/kimagemapeditor.1*
+#%{_mandir}/man1/kimagemapeditor.1*
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -371,12 +367,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
 %{_datadir}/apps/klinkstatuspart/pics/304.png
 %{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
+%{_datadir}/apps/klinkstatus/styles
 %{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
 %{_datadir}/config.kcfg/klinkstatus.kcfg
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
-%{_mandir}/man1/klinkstatus.1*
+#%{_mandir}/man1/klinkstatus.1*
 
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
@@ -394,9 +391,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
-%{_mandir}/man1/kmdr-editor.1*
-%{_mandir}/man1/kmdr-executor.1*
-%{_mandir}/man1/kmdr-plugins.1*
+#%{_mandir}/man1/kmdr-editor.1*
+#%{_mandir}/man1/kmdr-executor.1*
+#%{_mandir}/man1/kmdr-plugins.1*
 
 %files kommander-devel
 %defattr(644,root,root,755)
@@ -419,7 +416,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kxsldbg_part.desktop
 %{_desktopdir}/kde/kxsldbg.desktop
 %{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
-%{_mandir}/man1/kxsldbg.1*
+#%{_mandir}/man1/kxsldbg.1*
 
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
@@ -438,4 +435,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/quanta.desktop
 %{_iconsdir}/[!l]*/*/apps/quanta.png
 %{_iconsdir}/[!l]*/*/actions/[!x]*.png
-%{_mandir}/man1/quanta.1*
+#%{_mandir}/man1/quanta.1*
