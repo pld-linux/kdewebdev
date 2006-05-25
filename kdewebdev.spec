@@ -1,6 +1,5 @@
 # TODO
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
-# - locolor icons?
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -323,6 +322,9 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %endif
+
+# unsupported
+rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 %find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
