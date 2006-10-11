@@ -20,6 +20,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Source1:	%{name}-kommandersplash.png
 #Patch100:	%{name}-branch.diff
 Patch0:		%{name}-quanta.patch
+Patch1:		kde-ac260-lt.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -280,6 +281,8 @@ características.
 %setup -q
 #%patch100 -p0
 %patch0 -p1
+%patch1 -p1
+
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Development;WebDevelopment;/' \
