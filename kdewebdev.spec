@@ -10,17 +10,18 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	3.5.4
-Release:	1
+Version:	3.5.5
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	310a40555c089e88cc5ff7620a89b444
+# Source0-md5:	d0655fd0286607f4726a82db96f00da3
 Source1:	%{name}-kommandersplash.png
 #Patch100:	%{name}-branch.diff
-Patch0:		%{name}-quanta.patch
-Patch1:		kde-ac260-lt.patch
+Patch0:		kde-common-PLD.patch
+Patch1:		%{name}-quanta.patch
+Patch2:		kde-ac260-lt.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -282,6 +283,7 @@ características.
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
@@ -320,12 +322,6 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
-# Debian manpages
-%if 0
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-%endif
-
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
@@ -363,7 +359,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
 %{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
-#%{_mandir}/man1/kimagemapeditor.1*
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -378,7 +373,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
 %{_iconsdir}/hicolor/*/apps/klinkstatus.png
-#%{_mandir}/man1/klinkstatus.1*
 
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
@@ -396,9 +390,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
-#%{_mandir}/man1/kmdr-editor.1*
-#%{_mandir}/man1/kmdr-executor.1*
-#%{_mandir}/man1/kmdr-plugins.1*
+%{_datadir}/apps/katepart/syntax/kommander.xml
 
 %files kommander-devel
 %defattr(644,root,root,755)
@@ -421,7 +413,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kxsldbg_part.desktop
 %{_desktopdir}/kde/kxsldbg.desktop
 %{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
-#%{_mandir}/man1/kxsldbg.1*
 
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
@@ -440,4 +431,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/quanta.desktop
 %{_iconsdir}/[!l]*/*/apps/quanta.png
 %{_iconsdir}/[!l]*/*/actions/[!x]*.png
-#%{_mandir}/man1/quanta.1*
