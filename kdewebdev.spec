@@ -34,6 +34,8 @@ BuildRequires:	sed >= 4.0
 BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define         _noautoreq      libtool(.*)
+
 %description
 Quanta Plus is a web development tool for the K Desktop Environment.
 Quanta is designed for quick web development and is rapidly becoming a
