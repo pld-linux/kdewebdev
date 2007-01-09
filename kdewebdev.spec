@@ -11,7 +11,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.5
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -22,6 +22,7 @@ Source1:	%{name}-kommandersplash.png
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-quanta.patch
 Patch2:		kde-ac260-lt.patch
+Patch3:		kde-am.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -33,8 +34,6 @@ BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildConflicts:	quanta
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _noautoreq      libtool(.*)
 
 %description
 Quanta Plus is a web development tool for the K Desktop Environment.
@@ -286,6 +285,7 @@ características.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
@@ -327,6 +327,8 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
 %find_lang kommander	--with-kde
@@ -344,7 +346,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kfilereplace -f kfilereplace.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfilereplace
-%{_libdir}/kde3/libkfilereplacepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so
 %{_datadir}/apps/kfilereplace
 %{_datadir}/apps/kfilereplacepart
@@ -355,7 +356,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kimagemapeditor
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kimagemapeditor
-%{_libdir}/kde3/libkimagemapeditor.la
 %attr(755,root,root) %{_libdir}/kde3/libkimagemapeditor.so
 %{_datadir}/apps/kimagemapeditor
 %{_datadir}/services/kimagemapeditorpart.desktop
@@ -365,7 +365,6 @@ rm -rf $RPM_BUILD_ROOT
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klinkstatus
-%{_libdir}/kde3/libklinkstatuspart.la
 %attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
 %{_datadir}/apps/klinkstatuspart/pics/304.png
 %{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
@@ -381,11 +380,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmdr-editor
 %attr(755,root,root) %{_bindir}/kmdr-executor
 %attr(755,root,root) %{_bindir}/kmdr-plugins
-%{_libdir}/libkommanderplugin.la
 %attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
-%{_libdir}/libkommanderwidget.la
 %attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
-%{_libdir}/libkommanderwidgets.la
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
 %{_datadir}/applnk/.hidden/kmdr-executor.desktop
 %{_datadir}/mimelnk/application/x-kommander.desktop
@@ -396,9 +392,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kommander-devel
 %defattr(644,root,root,755)
-%{_libdir}/libkommanderplugin.so
-%{_libdir}/libkommanderwidget.so
-%{_libdir}/libkommanderwidgets.so
+%{_libdir}/libkommanderplugin.la
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so
+%{_libdir}/libkommanderwidget.la
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so
+%{_libdir}/libkommanderwidgets.la
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
 %{_includedir}/kommanderfactory.h
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
@@ -408,7 +407,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kxsldbg
 %attr(755,root,root) %{_bindir}/xsldbg
-%{_libdir}/kde3/libkxsldbgpart.la
 %attr(755,root,root) %{_libdir}/kde3/libkxsldbgpart.so
 %{_datadir}/apps/kxsldbg
 %{_datadir}/apps/kxsldbgpart
@@ -419,9 +417,7 @@ rm -rf $RPM_BUILD_ROOT
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quanta
-%{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
-%{_libdir}/kde3/quantadebuggerdbgp.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggerdbgp.so
 %{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
