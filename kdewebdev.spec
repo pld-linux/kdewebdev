@@ -10,13 +10,13 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	3.5.5
-Release:	1
+Version:	3.5.6
+Release:	0.1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d0655fd0286607f4726a82db96f00da3
+# Source0-md5:	fa1fc2d7c81465c7e1762014a892ced3
 Source1:	%{name}-kommandersplash.png
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
