@@ -11,7 +11,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.6
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -109,6 +109,7 @@ po³±czenie dla wszystkich sekwencji ¿±dañ.
 Summary:	A langauage independent visual dialog building tool
 Summary(pl):	Niezale¿ne od jêzyka narzêdzie do budowy okien dialogowych
 Group:		X11/Development/Tools
+Requires:	%{name}-kommander-executor = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
 
@@ -191,6 +192,15 @@ jêzyków skryptowych, a aplikacje mog± byæ przejête przez ludzi
 u¿ywaj±cych innego jêzyka ni¿ oryginalny twórca, a pó¼niej stopniowo
 konwertowane i rozszerzane. Nowe widgety i mo¿liwo¶ci mog± byæ
 natychmiast poddane wszystkim dostêpnym jêzykom.
+
+%package kommander-executor
+Summary:	Kommander executor
+Group:		X11/Applications
+Requires:	kdebase-core >= %{_minbasesevr}
+Conflicts:	kdewebdev-kommander < 2:3.5.6-2
+
+%description kommander-executor
+Executor of Kommander scripts.
 
 %package kommander-devel
 Summary:	Development files for kommander
@@ -376,26 +386,29 @@ rm -rf $RPM_BUILD_ROOT
 %files kommander -f kommander.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmdr-editor
-%attr(755,root,root) %{_bindir}/kmdr-executor
 %attr(755,root,root) %{_bindir}/kmdr-plugins
-%attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
-%attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
-%{_datadir}/applnk/.hidden/kmdr-executor.desktop
 %{_datadir}/mimelnk/application/x-kommander.desktop
 %{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
 %{_datadir}/apps/katepart/syntax/kommander.xml
 
+%files kommander-executor
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmdr-executor
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
+%{_datadir}/applnk/.hidden/kmdr-executor.desktop
+
 %files kommander-devel
 %defattr(644,root,root,755)
+%{_libdir}/libkommanderplugin.so
+%{_libdir}/libkommanderwidget.so
+%{_libdir}/libkommanderwidgets.so
 %{_libdir}/libkommanderplugin.la
-%attr(755,root,root) %{_libdir}/libkommanderplugin.so
 %{_libdir}/libkommanderwidget.la
-%attr(755,root,root) %{_libdir}/libkommanderwidget.so
 %{_libdir}/libkommanderwidgets.la
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
 %{_includedir}/kommanderfactory.h
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
