@@ -374,10 +374,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klinkstatus
 %attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
-%{_datadir}/apps/klinkstatuspart/pics/304.png
-%{_datadir}/apps/klinkstatus/klinkstatus_shell.rc
-%{_datadir}/apps/klinkstatus/styles
-%{_datadir}/apps/klinkstatuspart/klinkstatus_part.rc
+%{_datadir}/apps/klinkstatus
+%{_datadir}/apps/klinkstatuspart
 %{_datadir}/config.kcfg/klinkstatus.kcfg
 %{_datadir}/services/klinkstatus_part.desktop
 %{_desktopdir}/kde/klinkstatus.desktop
@@ -388,7 +386,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmdr-editor
 %attr(755,root,root) %{_bindir}/kmdr-plugins
 %{_datadir}/mimelnk/application/x-kommander.desktop
-%{_datadir}/apps/kmdr-editor/pics/kommandersplash.png
+%{_datadir}/apps/kmdr-editor
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
 %{_datadir}/apps/katepart/syntax/kommander.xml
