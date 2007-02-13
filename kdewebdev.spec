@@ -6,9 +6,9 @@
 %define		_minbaseevr	9:%{version}
 
 Summary:	Web development tools for KDE
-Summary(es.UTF-8):   Uno editor WEB para KDE
-Summary(pl.UTF-8):   Narzędzia do tworzenia WWW dla KDE
-Summary(pt_BR.UTF-8):   Um editor web para o KDE
+Summary(es.UTF-8):	Uno editor WEB para KDE
+Summary(pl.UTF-8):	Narzędzia do tworzenia WWW dla KDE
+Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.6
 Release:	2
@@ -57,7 +57,7 @@ características.
 
 %package kfilereplace
 Summary:	A powerful string replacer
-Summary(pl.UTF-8):   Rozbudowane narzędzie do zamiany tekstu
+Summary(pl.UTF-8):	Rozbudowane narzędzie do zamiany tekstu
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Obsoletes:	kdesdk-kfilereplace
@@ -73,7 +73,7 @@ ilości plików, podczas jednej operacji.
 
 %package kimagemapeditor
 Summary:	An HTML image map editor
-Summary(pl.UTF-8):   Edytor map obrazów w HTML
+Summary(pl.UTF-8):	Edytor map obrazów w HTML
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 
@@ -85,7 +85,7 @@ Edytor map obrazów w HTML.
 
 %package klinkstatus
 Summary:	Link checker for KDE
-Summary(pl.UTF-8):   Program do sprawdzania odnośników pod KDE.
+Summary(pl.UTF-8):	Program do sprawdzania odnośników pod KDE.
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	kdewebdev-quanta_be
@@ -107,7 +107,7 @@ połączenie dla wszystkich sekwencji żądań.
 
 %package kommander
 Summary:	A langauage independent visual dialog building tool
-Summary(pl.UTF-8):   Niezależne od języka narzędzie do budowy okien dialogowych
+Summary(pl.UTF-8):	Niezależne od języka narzędzie do budowy okien dialogowych
 Group:		X11/Development/Tools
 Requires:	%{name}-kommander-executor = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= %{_minbasesevr}
@@ -204,7 +204,7 @@ Executor of Kommander scripts.
 
 %package kommander-devel
 Summary:	Development files for kommander
-Summary(pl.UTF-8):   Nagłówki dla kommandera
+Summary(pl.UTF-8):	Nagłówki dla kommandera
 Group:		X11/Development/Libraries
 Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
 Provides:	quanta-devel = %{epoch}:%{version}-%{release}
@@ -218,7 +218,7 @@ Nagłówki dla kommandera.
 
 %package kxsldbg
 Summary:	KXsldbg - graphical debugger and frontend to xsldbg
-Summary(pl.UTF-8):   KXsldbg - graficzny debugger i frontend do xsldbg
+Summary(pl.UTF-8):	KXsldbg - graficzny debugger i frontend do xsldbg
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
@@ -244,9 +244,9 @@ KXsldbg to graficzny debugger i frontend do xsldbg. Pozwana na:
 
 %package quanta
 Summary:	Web development tool for KDE
-Summary(es.UTF-8):   Uno editor WEB para KDE
-Summary(pl.UTF-8):   Narzędzie do tworzenia WWW dla KDE
-Summary(pt_BR.UTF-8):   Um editor web para o KDE
+Summary(es.UTF-8):	Uno editor WEB para KDE
+Summary(pl.UTF-8):	Narzędzie do tworzenia WWW dla KDE
+Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 # Applications required for full functionality:
