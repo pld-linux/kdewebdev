@@ -11,7 +11,7 @@ Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.7
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
