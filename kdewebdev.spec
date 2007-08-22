@@ -1,6 +1,5 @@
 # TODO
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
-# - pl for -kommander-executor
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -196,6 +195,7 @@ natychmiast poddane wszystkim dostępnym językom.
 
 %package kommander-executor
 Summary:	Kommander executor
+Summary(pl.UTF-8):	Wykonawca Kommandera
 Group:		X11/Applications
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	kdewebdev-kommander < 2:3.5.6-2
@@ -203,11 +203,14 @@ Conflicts:	kdewebdev-kommander < 2:3.5.6-2
 %description kommander-executor
 Executor of Kommander scripts.
 
+%description kommander-executor -l pl.UTF-8
+Wykonawca skryptów Kommandera.
+
 %package kommander-devel
 Summary:	Development files for kommander
 Summary(pl.UTF-8):	Nagłówki dla kommandera
 Group:		X11/Development/Libraries
-Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kommander-executor = %{epoch}:%{version}-%{release}
 Provides:	quanta-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	quanta-devel
 
@@ -402,9 +405,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kommander-devel
 %defattr(644,root,root,755)
-%{_libdir}/libkommanderplugin.so
-%{_libdir}/libkommanderwidget.so
-%{_libdir}/libkommanderwidgets.so
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
 %{_libdir}/libkommanderplugin.la
 %{_libdir}/libkommanderwidget.la
 %{_libdir}/libkommanderwidgets.la
