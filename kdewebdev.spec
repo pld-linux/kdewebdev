@@ -1,5 +1,6 @@
 # TODO
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
+# - pl for -kommander-executor
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
