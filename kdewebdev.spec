@@ -10,13 +10,13 @@ Summary(es):	Uno editor WEB para KDE
 Summary(pl):	Narzêdzia do tworzenia WWW dla KDE
 Summary(pt_BR):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	3.5.7
+Version:	3.5.8
 Release:	1
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1329e0aea45947a14faa3d936f9edb5d
+# Source0-md5:	6c17c4b71a4d306da4b81a0cfd3116e1
 Source1:	%{name}-kommandersplash.png
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
@@ -387,8 +387,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmdr-editor
 %attr(755,root,root) %{_bindir}/kmdr-plugins
 %{_datadir}/mimelnk/application/x-kommander.desktop
-%{_datadir}/apps/kmdr-editor
 %{_desktopdir}/kde/kmdr-editor.desktop
+%{_datadir}/apps/kommander
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
 %{_datadir}/apps/katepart/syntax/kommander.xml
 
