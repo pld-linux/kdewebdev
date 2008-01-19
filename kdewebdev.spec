@@ -22,6 +22,7 @@ Source1:	%{name}-kommandersplash.png
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-quanta.patch
 Patch2:		kde-ac260-lt.patch
+URL:		http://www.kde.org/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -352,8 +353,8 @@ cat xsldbg.lang >> kxsldbg.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	kommander	-p /sbin/ldconfig
-%postun	kommander	-p /sbin/ldconfig
+%post	kommander-executor -p /sbin/ldconfig
+%postun	kommander-executor -p /sbin/ldconfig
 
 %files kfilereplace -f kfilereplace.lang
 %defattr(644,root,root,755)
