@@ -22,6 +22,7 @@ Source1:	%{name}-kommandersplash.png
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-quanta.patch
 Patch2:		kde-ac260-lt.patch
+URL:		http://www.kde.org/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -195,6 +196,7 @@ natychmiast poddane wszystkim dostępnym językom.
 
 %package kommander-executor
 Summary:	Kommander executor
+Summary(pl.UTF-8):	Wykonawca Kommandera
 Group:		X11/Applications
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	kdewebdev-kommander < 2:3.5.6-2
@@ -202,11 +204,14 @@ Conflicts:	kdewebdev-kommander < 2:3.5.6-2
 %description kommander-executor
 Executor of Kommander scripts.
 
+%description kommander-executor -l pl.UTF-8
+Wykonawca skryptów Kommandera.
+
 %package kommander-devel
 Summary:	Development files for kommander
 Summary(pl.UTF-8):	Nagłówki dla kommandera
 Group:		X11/Development/Libraries
-Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kommander-executor = %{epoch}:%{version}-%{release}
 Provides:	quanta-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	quanta-devel
 
@@ -335,6 +340,8 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
 %find_lang kommander	--with-kde
@@ -346,13 +353,12 @@ cat xsldbg.lang >> kxsldbg.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	kommander	-p /sbin/ldconfig
-%postun	kommander	-p /sbin/ldconfig
+%post	kommander-executor -p /sbin/ldconfig
+%postun	kommander-executor -p /sbin/ldconfig
 
 %files kfilereplace -f kfilereplace.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfilereplace
-%{_libdir}/kde3/libkfilereplacepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkfilereplacepart.so
 %{_datadir}/apps/kfilereplace
 %{_datadir}/apps/kfilereplacepart
@@ -363,7 +369,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kimagemapeditor
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kimagemapeditor
-%{_libdir}/kde3/libkimagemapeditor.la
 %attr(755,root,root) %{_libdir}/kde3/libkimagemapeditor.so
 %{_datadir}/apps/kimagemapeditor
 %{_datadir}/services/kimagemapeditorpart.desktop
@@ -373,7 +378,6 @@ rm -rf $RPM_BUILD_ROOT
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klinkstatus
-%{_libdir}/kde3/libklinkstatuspart.la
 %attr(755,root,root) %{_libdir}/kde3/libklinkstatuspart.so
 %{_datadir}/apps/klinkstatus
 %{_datadir}/apps/klinkstatuspart
@@ -398,16 +402,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
 %attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
-%{_libdir}/libkommanderplugin.la
-%{_libdir}/libkommanderwidget.la
-%{_libdir}/libkommanderwidgets.la
 %{_datadir}/applnk/.hidden/kmdr-executor.desktop
 
 %files kommander-devel
 %defattr(644,root,root,755)
-%{_libdir}/libkommanderplugin.so
-%{_libdir}/libkommanderwidget.so
-%{_libdir}/libkommanderwidgets.so
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
+%{_libdir}/libkommanderplugin.la
+%{_libdir}/libkommanderwidget.la
+%{_libdir}/libkommanderwidgets.la
 %{_includedir}/kommanderfactory.h
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
@@ -417,7 +421,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kxsldbg
 %attr(755,root,root) %{_bindir}/xsldbg
-%{_libdir}/kde3/libkxsldbgpart.la
 %attr(755,root,root) %{_libdir}/kde3/libkxsldbgpart.so
 %{_datadir}/apps/kxsldbg
 %{_datadir}/apps/kxsldbgpart
@@ -428,9 +431,7 @@ rm -rf $RPM_BUILD_ROOT
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/quanta
-%{_libdir}/kde3/quantadebuggergubed.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggergubed.so
-%{_libdir}/kde3/quantadebuggerdbgp.la
 %attr(755,root,root) %{_libdir}/kde3/quantadebuggerdbgp.so
 %{_datadir}/apps/kafkapart
 %{_datadir}/apps/quanta
