@@ -6,9 +6,9 @@
 %define		_minbaseevr	9:%{version}
 
 Summary:	Web development tools for KDE
-Summary(es):	Uno editor WEB para KDE
-Summary(pl):	NarzÍdzia do tworzenia WWW dla KDE
-Summary(pt_BR):	Um editor web para o KDE
+Summary(es.UTF-8):	Uno editor WEB para KDE
+Summary(pl.UTF-8):	Narzƒôdzia do tworzenia WWW dla KDE
+Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.8
 Release:	1
@@ -39,25 +39,25 @@ Quanta Plus is a web development tool for the K Desktop Environment.
 Quanta is designed for quick web development and is rapidly becoming a
 mature editor with a number of great features.
 
-%description -l es
-Quanta Plus Ès una herramienta de desarrollo web para KDE. Es
+%description -l es.UTF-8
+Quanta Plus √©s una herramienta de desarrollo web para KDE. Es
 projetado para rapido desarrollo web e es casi pronto com excelent
 quantidad de caracteristicas.
 
-%description -l pl
-Quanta Plus to narzÍdzie do tworzenia WWW dla ∂rodowiska KDE. S≥uøy do
-szybkiego tworzenia stron i staje siÍ dojrza≥ym edytorem z wieloma
-przydatnymi moøliwo∂ciami.
+%description -l pl.UTF-8
+Quanta Plus to narzƒôdzie do tworzenia WWW dla ≈õrodowiska KDE. S≈Çu≈ºy do
+szybkiego tworzenia stron i staje siƒô dojrza≈Çym edytorem z wieloma
+przydatnymi mo≈ºliwo≈õciami.
 
-%description -l pt_BR
-O Quanta Plus È uma ferramenta para desenvolvimento web para o KDE. …
-projetado para desenvolvimento web r·pido e est· rapidamente se
-tornando um editor maduro com um bom n˙mero de excelentes
-caracterÌsticas.
+%description -l pt_BR.UTF-8
+O Quanta Plus √© uma ferramenta para desenvolvimento web para o KDE. √â
+projetado para desenvolvimento web r√°pido e est√° rapidamente se
+tornando um editor maduro com um bom n√∫mero de excelentes
+caracter√≠sticas.
 
 %package kfilereplace
 Summary:	A powerful string replacer
-Summary(pl):	Rozbudowane narzÍdzie do zamiany tekstu
+Summary(pl.UTF-8):	Rozbudowane narzƒôdzie do zamiany tekstu
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Obsoletes:	kdesdk-kfilereplace
@@ -67,25 +67,25 @@ Conflicts:	quanta < 1:3.2.90
 KFileReplace is a KDE utility which replace some strings with others
 in a lot of files in an only operation.
 
-%description kfilereplace -l pl
-KFileReplace to narzÍdzie do masowej zmiany rÛønych tekstÛw w duøej
-ilo∂ci plikÛw, podczas jednej operacji.
+%description kfilereplace -l pl.UTF-8
+KFileReplace to narzƒôdzie do masowej zmiany r√≥≈ºnych tekst√≥w w du≈ºej
+ilo≈õci plik√≥w, podczas jednej operacji.
 
 %package kimagemapeditor
 Summary:	An HTML image map editor
-Summary(pl):	Edytor map obrazÛw w HTML
+Summary(pl.UTF-8):	Edytor map obraz√≥w w HTML
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 
 %description kimagemapeditor
 An HTML image map editor.
 
-%description kimagemapeditor -l pl
-Edytor map obrazÛw w HTML.
+%description kimagemapeditor -l pl.UTF-8
+Edytor map obraz√≥w w HTML.
 
 %package klinkstatus
 Summary:	Link checker for KDE
-Summary(pl):	Program do sprawdzania odno∂nikÛw pod KDE.
+Summary(pl.UTF-8):	Program do sprawdzania odno≈õnik√≥w pod KDE.
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	kdewebdev-quanta_be
@@ -97,17 +97,17 @@ possible to choose the search depth of URLs with foreign domain. For
 performance, it supports several simultaneous connections and try to
 use the same connection for the same sequence of requests.
 
-%description klinkstatus -l pl
-KLinkStatus jest narzÍdziem do sprawdzania odno∂nikÛw na stronie.
-Obs≥uguje wyszukiwanie wed≥ug g≥Íboko∂ci, domeny lub obu naraz. W
-wyszukiwaniu wed≥ug domeny moøna rÛwnieø dodaÊ maksymaln± g≥Íboko∂Ê
-dla pozosta≥ych domen. Dla uzyskania jak najlepszej wydajno∂ci program
-obs≥uguje symultaniczne po≥±czenia oraz prÛbuje wykorzystaÊ jedno
-po≥±czenie dla wszystkich sekwencji ø±daÒ.
+%description klinkstatus -l pl.UTF-8
+KLinkStatus jest narzƒôdziem do sprawdzania odno≈õnik√≥w na stronie.
+Obs≈Çuguje wyszukiwanie wed≈Çug g≈Çƒôboko≈õci, domeny lub obu naraz. W
+wyszukiwaniu wed≈Çug domeny mo≈ºna r√≥wnie≈º dodaƒá maksymalnƒÖ g≈Çƒôboko≈õƒá
+dla pozosta≈Çych domen. Dla uzyskania jak najlepszej wydajno≈õci program
+obs≈Çuguje symultaniczne po≈ÇƒÖczenia oraz pr√≥buje wykorzystaƒá jedno
+po≈ÇƒÖczenie dla wszystkich sekwencji ≈ºƒÖda≈Ñ.
 
 %package kommander
 Summary:	A langauage independent visual dialog building tool
-Summary(pl):	Niezaleøne od jÍzyka narzÍdzie do budowy okien dialogowych
+Summary(pl.UTF-8):	Niezale≈ºne od jƒôzyka narzƒôdzie do budowy okien dialogowych
 Group:		X11/Development/Tools
 Requires:	%{name}-kommander-executor = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core >= %{_minbasesevr}
@@ -152,46 +152,46 @@ language than the original developer and gradually converting and
 extending it. New widgets and features can be instantly leveraged by
 all available languages.
 
-%description kommander -l pl
-Kommander to wizualne narzÍdzie do tworzenia okien dialogowych, ktÛre
-moøna rozszerzaÊ o tworzenie pe≥nych aplikacji z g≥Ûwnym oknem.
-Podstawowym celem jest tworzenie jak najwiÍkszej funkcjonalno∂ci bez
-uøywania øadnego jÍzyka skryptowego. Maj± to umoøliwiÊ nastÍpuj±ce
+%description kommander -l pl.UTF-8
+Kommander to wizualne narzƒôdzie do tworzenia okien dialogowych, kt√≥re
+mo≈ºna rozszerzaƒá o tworzenie pe≈Çnych aplikacji z g≈Ç√≥wnym oknem.
+Podstawowym celem jest tworzenie jak najwiƒôkszej funkcjonalno≈õci bez
+u≈ºywania ≈ºadnego jƒôzyka skryptowego. MajƒÖ to umo≈ºliwiƒá nastƒôpujƒÖce
 cechy:
 - specjalne oznaczenia - poprzedzone znakiem "@", jak @widgetText.
-  Oferuj± one specjalne moøliwo∂ci, takie jak warto∂Ê widgetu, funkcje,
+  OferujƒÖ one specjalne mo≈ºliwo≈õci, takie jak warto≈õƒá widgetu, funkcje,
   aliasy, zmienne globalne itp.
-- integracja DCOP - umoøliwia oknom Kommandera sterowanie i bycie
+- integracja DCOP - umo≈ºliwia oknom Kommandera sterowanie i bycie
   sterowanym w interakcji z innymi aplikacjami KDE.
-- Sygna≥y i sloty - s± nieco mniej intuicyjne dla nowego uøytkownika.
-  Jeszcze nie zosta≥o ostatecznie ustalone, jak te rzeczy bÍd±
-  przetwarzane w pierwszym wydaniu. Oferuj± one ograniczony model
-  zdarzeniowy dla sytuacji wci∂niÍcia przycisku czy zmiany widgetu. W
-  po≥±czeniu z "Population Text" s± dosyÊ potÍønym narzÍdziem.
+- Sygna≈Çy i sloty - sƒÖ nieco mniej intuicyjne dla nowego u≈ºytkownika.
+  Jeszcze nie zosta≈Ço ostatecznie ustalone, jak te rzeczy bƒôdƒÖ
+  przetwarzane w pierwszym wydaniu. OferujƒÖ one ograniczony model
+  zdarzeniowy dla sytuacji wci≈õniƒôcia przycisku czy zmiany widgetu. W
+  po≈ÇƒÖczeniu z "Population Text" sƒÖ dosyƒá potƒô≈ºnym narzƒôdziem.
 
-Kluczow± cech± okien dialogowych Kommandera jest to, øe moøna
-przywi±zaÊ tekst (Kommander Text) do widgetu. Je∂li mamy @widget1 i
-@widget2, i s± one liniami edycji, moøna ustawiÊ Kommandera, by
-pokazywa≥ ich zawarto∂Ê poprzez wpisanie @widgetText w ich polach
-Kommander Text. Potem moøna wpisaÊ "hello" w @widget1 i "world" w
-@widget2. Przycisk moøe mieÊ ≥aÒcuch "MÛj pierwszy program @widget1
-@widget2 w Kommanderze". Je∂li uruchomimy to okno dialogowe z konsoli,
-wypisze ono "MÛj pierwszy program hello world w Kommanderze".
+KluczowƒÖ cechƒÖ okien dialogowych Kommandera jest to, ≈ºe mo≈ºna
+przywiƒÖzaƒá tekst (Kommander Text) do widgetu. Je≈õli mamy @widget1 i
+@widget2, i sƒÖ one liniami edycji, mo≈ºna ustawiƒá Kommandera, by
+pokazywa≈Ç ich zawarto≈õƒá poprzez wpisanie @widgetText w ich polach
+Kommander Text. Potem mo≈ºna wpisaƒá "hello" w @widget1 i "world" w
+@widget2. Przycisk mo≈ºe mieƒá ≈Ça≈Ñcuch "M√≥j pierwszy program @widget1
+@widget2 w Kommanderze". Je≈õli uruchomimy to okno dialogowe z konsoli,
+wypisze ono "M√≥j pierwszy program hello world w Kommanderze".
 
-Kommander takøe usi≥uje byÊ oparty na standardach. Jest zbudowany na
-∂rodowisku Qt Designera i tworzy pliki *.ui, ktÛrym zmienia nazwy na
-- *.kmdr. Moøe ≥atwo zaimportowaÊ dowolny widget KDE, co moøna ≥atwo
-  zrobiÊ poprzez uøycie wtyczek, bez potrzeby przebudowywania
+Kommander tak≈ºe usi≈Çuje byƒá oparty na standardach. Jest zbudowany na
+≈õrodowisku Qt Designera i tworzy pliki *.ui, kt√≥rym zmienia nazwy na
+- *.kmdr. Mo≈ºe ≈Çatwo zaimportowaƒá dowolny widget KDE, co mo≈ºna ≈Çatwo
+  zrobiƒá poprzez u≈ºycie wtyczek, bez potrzeby przebudowywania
   Kommandera.
 
-Kolejnym znacz±cym czynnikiem Kommandera jest bycie niezaleønym od
-jÍzyka i moøliwo∂Ê rozszerzania poprzez uøycie dowolnego jÍzyka
-skryptowego. Konqueror plasuje siÍ na unikalnej pozycji do szeroko
-rozpowszechnionej adopcji. W jednym oknie dialogowym moøna uøyÊ wiele
-jÍzykÛw skryptowych, a aplikacje mog± byÊ przejÍte przez ludzi
-uøywaj±cych innego jÍzyka niø oryginalny twÛrca, a pÛºniej stopniowo
-konwertowane i rozszerzane. Nowe widgety i moøliwo∂ci mog± byÊ
-natychmiast poddane wszystkim dostÍpnym jÍzykom.
+Kolejnym znaczƒÖcym czynnikiem Kommandera jest bycie niezale≈ºnym od
+jƒôzyka i mo≈ºliwo≈õƒá rozszerzania poprzez u≈ºycie dowolnego jƒôzyka
+skryptowego. Konqueror plasuje siƒô na unikalnej pozycji do szeroko
+rozpowszechnionej adopcji. W jednym oknie dialogowym mo≈ºna u≈ºyƒá wiele
+jƒôzyk√≥w skryptowych, a aplikacje mogƒÖ byƒá przejƒôte przez ludzi
+u≈ºywajƒÖcych innego jƒôzyka ni≈º oryginalny tw√≥rca, a p√≥≈∫niej stopniowo
+konwertowane i rozszerzane. Nowe widgety i mo≈ºliwo≈õci mogƒÖ byƒá
+natychmiast poddane wszystkim dostƒôpnym jƒôzykom.
 
 %package kommander-executor
 Summary:	Kommander executor
@@ -204,7 +204,7 @@ Executor of Kommander scripts.
 
 %package kommander-devel
 Summary:	Development files for kommander
-Summary(pl):	Nag≥Ûwki dla kommandera
+Summary(pl.UTF-8):	Nag≈Ç√≥wki dla kommandera
 Group:		X11/Development/Libraries
 Requires:	%{name}-kommander = %{epoch}:%{version}-%{release}
 Provides:	quanta-devel = %{epoch}:%{version}-%{release}
@@ -213,12 +213,12 @@ Obsoletes:	quanta-devel
 %description kommander-devel
 Development files for kommander.
 
-%description kommander-devel -l pl
-Nag≥Ûwki dla kommandera.
+%description kommander-devel -l pl.UTF-8
+Nag≈Ç√≥wki dla kommandera.
 
 %package kxsldbg
 Summary:	KXsldbg - graphical debugger and frontend to xsldbg
-Summary(pl):	KXsldbg - graficzny debugger i frontend do xsldbg
+Summary(pl.UTF-8):	KXsldbg - graficzny debugger i frontend do xsldbg
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 Conflicts:	quanta < 1:3.2.3
@@ -233,20 +233,20 @@ to:
 - move around XSL source and XML document via XPaths
 - lookup PUBLIC and SYSTEM ID's in the current XML catalog
 
-%description kxsldbg -l pl
+%description kxsldbg -l pl.UTF-8
 KXsldbg to graficzny debugger i frontend do xsldbg. Pozwana na:
-- ustawianie i modyfikowanie pu≥apek
-- wy∂wietlanie warto∂ci wyraøeÒ
-- wy∂wietlanie informacji o znalezionych pu≥apkach, szablonach,
-  zmiennych, stosie wywo≥aÒ, arkuszach stylÛw i encjach
-- przenoszenie ºrÛd≥a XSL i dokumentu XML poprzez XPaths
-- wyszukiwanie identyfikatorÛw PUBLIC i SYSTEM w bieø±cym katalogu XML
+- ustawianie i modyfikowanie pu≈Çapek
+- wy≈õwietlanie warto≈õci wyra≈ºe≈Ñ
+- wy≈õwietlanie informacji o znalezionych pu≈Çapkach, szablonach,
+  zmiennych, stosie wywo≈Ça≈Ñ, arkuszach styl√≥w i encjach
+- przenoszenie ≈∫r√≥d≈Ça XSL i dokumentu XML poprzez XPaths
+- wyszukiwanie identyfikator√≥w PUBLIC i SYSTEM w bie≈ºƒÖcym katalogu XML
 
 %package quanta
 Summary:	Web development tool for KDE
-Summary(es):	Uno editor WEB para KDE
-Summary(pl):	NarzÍdzie do tworzenia WWW dla KDE
-Summary(pt_BR):	Um editor web para o KDE
+Summary(es.UTF-8):	Uno editor WEB para KDE
+Summary(pl.UTF-8):	Narzƒôdzie do tworzenia WWW dla KDE
+Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Group:		X11/Development/Tools
 Requires:	kdebase-core >= %{_minbasesevr}
 # Applications required for full functionality:
@@ -272,21 +272,21 @@ Quanta Plus is a web development tool for the K Desktop Environment.
 Quanta is designed for quick web development and is rapidly becoming a
 mature editor with a number of great features.
 
-%description quanta -l es
-Quanta Plus Ès una herramienta de desarrollo web para KDE. Es
+%description quanta -l es.UTF-8
+Quanta Plus √©s una herramienta de desarrollo web para KDE. Es
 projetado para rapido desarrollo web e es casi pronto com excelent
 quantidad de caracteristicas.
 
-%description quanta -l pl
-Quanta Plus to narzÍdzie do tworzenia WWW dla ∂rodowiska KDE. S≥uøy do
-szybkiego tworzenia stron i staje siÍ dojrza≥ym edytorem z wieloma
-przydatnymi moøliwo∂ciami.
+%description quanta -l pl.UTF-8
+Quanta Plus to narzƒôdzie do tworzenia WWW dla ≈õrodowiska KDE. S≈Çu≈ºy do
+szybkiego tworzenia stron i staje siƒô dojrza≈Çym edytorem z wieloma
+przydatnymi mo≈ºliwo≈õciami.
 
-%description quanta -l pt_BR
-O Quanta Plus È uma ferramenta para desenvolvimento web para o KDE. …
-projetado para desenvolvimento web r·pido e est· rapidamente se
-tornando um editor maduro com um bom n˙mero de excelentes
-caracterÌsticas.
+%description quanta -l pt_BR.UTF-8
+O Quanta Plus √© uma ferramenta para desenvolvimento web para o KDE. √â
+projetado para desenvolvimento web r√°pido e est√° rapidamente se
+tornando um editor maduro com um bom n√∫mero de excelentes
+caracter√≠sticas.
 
 %prep
 %setup -q
