@@ -369,7 +369,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kfilereplacepart
 %{_datadir}/services/kfilereplacepart.desktop
 %{_desktopdir}/kde/kfilereplace.desktop
-%{_iconsdir}/[!l]*/*/apps/kfilereplace.png
+%{_iconsdir}/hicolor/*/apps/kfilereplace.png
 
 %files kimagemapeditor
 %defattr(644,root,root,755)
@@ -378,7 +378,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kimagemapeditor
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
-%{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
+%{_iconsdir}/hicolor/*/apps/kimagemapeditor.png
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -443,7 +443,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kxsldbgpart
 %{_datadir}/services/kxsldbg_part.desktop
 %{_desktopdir}/kde/kxsldbg.desktop
-%{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
+%{_iconsdir}/hicolor/*/actions/xsldbg_*.png
 
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
@@ -458,5 +458,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/quantadebuggerdbgp.desktop
 %{_datadir}/servicetypes/quantadebugger.desktop
 %{_desktopdir}/kde/quanta.desktop
-%{_iconsdir}/[!l]*/*/apps/quanta.png
-%{_iconsdir}/[!l]*/*/actions/[!x]*.png
+%{_iconsdir}/hicolor/*/apps/quanta.png
+%{_iconsdir}/hicolor/*/actions/[!x]*.png
+%{_iconsdir}/crystalsvg/*/actions/bug.png
