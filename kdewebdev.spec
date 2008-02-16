@@ -1,6 +1,5 @@
 # TODO
 # - missing icon for 'Webdesign' kde menu (not this package related, but still)
-
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
@@ -10,13 +9,13 @@ Summary(es.UTF-8):	Uno editor WEB para KDE
 Summary(pl.UTF-8):	Narzędzia do tworzenia WWW dla KDE
 Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
-Version:	3.5.8
-Release:	1
+Version:	3.5.9
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	6c17c4b71a4d306da4b81a0cfd3116e1
+# Source0-md5:	e95d1fbb698ec76966abfa5bdf96bd5e
 Source1:	%{name}-kommandersplash.png
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
@@ -30,6 +29,7 @@ BuildRequires:	kdesdk-libcvsservice-devel >= 3:3.4.0
 BuildRequires:	libgcrypt-devel
 BuildRequires:	libxml2-devel >= 1:2.6.0
 BuildRequires:	libxslt-devel >= 1.0.18
+BuildRequires:	rpmbuild(find_lang) >= 1.32
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildConflicts:	quanta
@@ -330,25 +330,30 @@ cp -f /usr/share/automake/config.sub admin
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir} \
+		kde_libs_htmldir=%{_kdedocdir}
 
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+	touch makeinstall.stamp
+fi
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+if [ ! -f installed.stamp ]; then
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+fi
 
 %find_lang kfilereplace	--with-kde
 %find_lang klinkstatus	--with-kde
 %find_lang kommander	--with-kde
 %find_lang kxsldbg	--with-kde
 %find_lang quanta	--with-kde
-%find_lang xsldbg	--with-kde
-cat xsldbg.lang >> kxsldbg.lang
+%find_lang xsldbg	--with-kde -a kxsldbg.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -364,7 +369,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kfilereplacepart
 %{_datadir}/services/kfilereplacepart.desktop
 %{_desktopdir}/kde/kfilereplace.desktop
-%{_iconsdir}/[!l]*/*/apps/kfilereplace.png
+%{_iconsdir}/hicolor/*/apps/kfilereplace.png
 
 %files kimagemapeditor
 %defattr(644,root,root,755)
@@ -373,7 +378,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kimagemapeditor
 %{_datadir}/services/kimagemapeditorpart.desktop
 %{_desktopdir}/kde/kimagemapeditor.desktop
-%{_iconsdir}/[!l]*/*/apps/kimagemapeditor.png
+%{_iconsdir}/hicolor/*/apps/kimagemapeditor.png
 
 %files klinkstatus -f klinkstatus.lang
 %defattr(644,root,root,755)
@@ -390,18 +395,29 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmdr-editor
 %attr(755,root,root) %{_bindir}/kmdr-plugins
+%attr(755,root,root) %ghost %{_libdir}/kde3/libkommander_part.so
+%{_datadir}/services/kommander_part.desktop
 %{_datadir}/mimelnk/application/x-kommander.desktop
 %{_desktopdir}/kde/kmdr-editor.desktop
 %{_datadir}/apps/kommander
+%{_datadir}/apps/kmdr-editor
 %{_iconsdir}/crystalsvg/*/apps/kommander.png
 %{_datadir}/apps/katepart/syntax/kommander.xml
+# subpackages?
+%{_datadir}/apps/katepart/syntax/kommander-new.xml
+%{_datadir}/apps/kdevappwizard/kommanderplugin.png
+%{_datadir}/apps/kdevappwizard/kommanderplugin.tar.gz
+%{_datadir}/apps/kdevappwizard/templates/kommanderplugin.kdevtemplate
 
 %files kommander-executor
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmdr-executor
 %attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkommanderplugin.so.0
 %attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkommanderwidget.so.0
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkommanderwidgets.so.0
 %{_datadir}/applnk/.hidden/kmdr-executor.desktop
 
 %files kommander-devel
@@ -416,6 +432,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kommanderplugin.h
 %{_includedir}/kommanderwidget.h
 %{_includedir}/kommander_export.h
+%{_includedir}/specials.h
 
 %files kxsldbg -f kxsldbg.lang
 %defattr(644,root,root,755)
@@ -426,7 +443,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kxsldbgpart
 %{_datadir}/services/kxsldbg_part.desktop
 %{_desktopdir}/kde/kxsldbg.desktop
-%{_iconsdir}/[!l]*/*/actions/xsldbg_*.png
+%{_iconsdir}/hicolor/*/actions/xsldbg_*.png
 
 %files quanta -f quanta.lang
 %defattr(644,root,root,755)
@@ -441,5 +458,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/quantadebuggerdbgp.desktop
 %{_datadir}/servicetypes/quantadebugger.desktop
 %{_desktopdir}/kde/quanta.desktop
-%{_iconsdir}/[!l]*/*/apps/quanta.png
-%{_iconsdir}/[!l]*/*/actions/[!x]*.png
+%{_iconsdir}/hicolor/*/apps/quanta.png
+%{_iconsdir}/hicolor/*/actions/[!x]*.png
+%{_iconsdir}/crystalsvg/*/actions/bug.png
