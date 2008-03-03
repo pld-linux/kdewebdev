@@ -1,0 +1,12 @@
+diff -urN kdewebdev-3.5.9.org/quanta/plugins/quantapluginconfig.cpp kdewebdev-3.5.9/quanta/plugins/quantapluginconfig.cpp
+--- kdewebdev-3.5.9.org/quanta/plugins/quantapluginconfig.cpp	2005-09-10 10:22:53.000000000 +0200
++++ kdewebdev-3.5.9/quanta/plugins/quantapluginconfig.cpp	2008-03-03 21:40:57.362143564 +0100
+@@ -87,7 +87,7 @@
+ void QuantaPluginConfig::nameChanged(const QString &a_text)
+ {
+   QString text = a_text;
+-  text = "lib" + text + ".la";
++  text = "lib" + text + ".so";
+   m_pluginConfigWidget->pluginFileName->setText(text.lower());
+ }
+ 
