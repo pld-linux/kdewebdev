@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Narzędzia do tworzenia WWW dla KDE
 Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.9
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -21,6 +21,7 @@ Source1:	%{name}-kommandersplash.png
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-quanta.patch
 Patch2:		kde-ac260-lt.patch
+Patch3:		%{name}-lib_loader.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6.1
@@ -299,6 +300,7 @@ características.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
