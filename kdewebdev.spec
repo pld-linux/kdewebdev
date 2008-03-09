@@ -407,8 +407,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/katepart/syntax/kommander.xml
 # subpackages?
 %{_datadir}/apps/katepart/syntax/kommander-new.xml
+%dir %{_datadir}/apps/kdevappwizard
 %{_datadir}/apps/kdevappwizard/kommanderplugin.png
 %{_datadir}/apps/kdevappwizard/kommanderplugin.tar.gz
+%dir %{_datadir}/apps/kdevappwizard/templates
 %{_datadir}/apps/kdevappwizard/templates/kommanderplugin.kdevtemplate
 
 %files kommander-executor
