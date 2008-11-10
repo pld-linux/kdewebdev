@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Narzędzia do tworzenia WWW dla KDE
 Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.10
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
