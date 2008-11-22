@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Narzędzia do tworzenia WWW dla KDE
 Summary(pt_BR.UTF-8):	Um editor web para o KDE
 Name:		kdewebdev
 Version:	3.5.10
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		X11/Development/Tools
@@ -416,19 +416,19 @@ rm -rf $RPM_BUILD_ROOT
 %files kommander-executor
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmdr-executor
+%attr(755,root,root) %{_libdir}/libkommanderplugin.so
 %attr(755,root,root) %{_libdir}/libkommanderplugin.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libkommanderplugin.so.0
+%attr(755,root,root) %{_libdir}/libkommanderwidget.so
 %attr(755,root,root) %{_libdir}/libkommanderwidget.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libkommanderwidget.so.0
+%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
 %attr(755,root,root) %{_libdir}/libkommanderwidgets.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libkommanderwidgets.so.0
 %{_datadir}/applnk/.hidden/kmdr-executor.desktop
 
 %files kommander-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkommanderplugin.so
-%attr(755,root,root) %{_libdir}/libkommanderwidget.so
-%attr(755,root,root) %{_libdir}/libkommanderwidgets.so
 %{_libdir}/libkommanderplugin.la
 %{_libdir}/libkommanderwidget.la
 %{_libdir}/libkommanderwidgets.la
