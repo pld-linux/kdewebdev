@@ -1,7 +1,7 @@
 Index: AUTHORS
 ===================================================================
---- AUTHORS	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ AUTHORS	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- AUTHORS	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ AUTHORS	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -12,8 +12,7 @@
        Nicolas Deschildre <ndeschildre@kdewebdev.org>
        Paulo Moura Guedes <moura@kdewebdev.org>
@@ -14,8 +14,8 @@ Index: AUTHORS
  Kommander (kommander):
 Index: quanta/project/projectupload.cpp
 ===================================================================
---- quanta/project/projectupload.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ quanta/project/projectupload.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- quanta/project/projectupload.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ quanta/project/projectupload.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -375,7 +375,7 @@
      buttonUpload->setEnabled(false);
      KURL u = *baseUrl;
@@ -27,8 +27,8 @@ Index: quanta/project/projectupload.cpp
        return;
 Index: lib/qextfileinfo.cpp
 ===================================================================
---- lib/qextfileinfo.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ lib/qextfileinfo.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- lib/qextfileinfo.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ lib/qextfileinfo.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -192,11 +192,11 @@
  {
    int i = 0;
@@ -54,8 +54,8 @@ Index: lib/qextfileinfo.cpp
          if (!dirListItems.contains(u) && u.url() != m_listStartURL && !u.isParentOf(item->url()))
 Index: klinkstatus/src/engine/linkchecker.cpp
 ===================================================================
---- klinkstatus/src/engine/linkchecker.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ klinkstatus/src/engine/linkchecker.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- klinkstatus/src/engine/linkchecker.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ klinkstatus/src/engine/linkchecker.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -72,41 +72,43 @@
      KURL url(linkStatus()->absoluteUrl());
      Q_ASSERT(url.isValid());
@@ -132,8 +132,8 @@ Index: klinkstatus/src/engine/linkchecker.cpp
  void LinkChecker::slotTimeOut()
 Index: kommander/widget/parser.h
 ===================================================================
---- kommander/widget/parser.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widget/parser.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widget/parser.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widget/parser.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -68,6 +68,16 @@
    void unsetArray(const QString& name, const QString& key = QString::null);
    // array value 
@@ -179,8 +179,8 @@ Index: kommander/widget/parser.h
  #endif
 Index: kommander/widget/functionlib.cpp
 ===================================================================
---- kommander/widget/functionlib.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widget/functionlib.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widget/functionlib.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widget/functionlib.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -120,6 +120,44 @@
    return params[0].toString().isEmpty();
  }
@@ -251,8 +251,8 @@ Index: kommander/widget/functionlib.cpp
    registerFunction("input_savefile", Function(&f_inputSaveFile, ValueString, ValueString, ValueString, ValueString, 0));
 Index: kommander/widget/parsenode.h
 ===================================================================
---- kommander/widget/parsenode.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widget/parsenode.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widget/parsenode.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widget/parsenode.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -23,8 +23,8 @@
  {
    enum Keyword {For, To, Step, End, While, Do, Foreach, In, If, Then, Else, Elseif, Endif, Switch, Case, 
@@ -288,8 +288,8 @@ Index: kommander/widget/parsenode.h
    /* for setting some context information, f. e. for bug reporting */
 Index: kommander/widget/parserdata.cpp
 ===================================================================
---- kommander/widget/parserdata.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widget/parserdata.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widget/parserdata.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widget/parserdata.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -59,6 +59,8 @@
    m_keywords["else"] =  Else;
    m_keywords["elseif"] =  Elseif;
@@ -319,8 +319,8 @@ Index: kommander/widget/parserdata.cpp
    m_groups[Less] = GroupComparison;
 Index: kommander/widget/parser.cpp
 ===================================================================
---- kommander/widget/parser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widget/parser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widget/parser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widget/parser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -99,6 +99,15 @@
      {
        while (start < s.length() && s[start] != '\n')
@@ -829,8 +829,8 @@ Index: kommander/widget/parser.cpp
 -
 Index: kommander/editor/mainwindow.cpp
 ===================================================================
---- kommander/editor/mainwindow.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/editor/mainwindow.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/editor/mainwindow.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/editor/mainwindow.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -463,6 +463,70 @@
  }
  
@@ -904,8 +904,8 @@ Index: kommander/editor/mainwindow.cpp
    previewing = false;
 Index: kommander/editor/mainwindow.h
 ===================================================================
---- kommander/editor/mainwindow.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/editor/mainwindow.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/editor/mainwindow.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/editor/mainwindow.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -191,6 +191,7 @@
      void configureEditor();
  
@@ -916,8 +916,8 @@ Index: kommander/editor/mainwindow.h
      void activeWindowChanged( QWidget *w );
 Index: kommander/editor/kommander-new.xml
 ===================================================================
---- kommander/editor/kommander-new.xml	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/editor/kommander-new.xml	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/editor/kommander-new.xml	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/editor/kommander-new.xml	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -138,6 +138,10 @@
        <item>str_toint</item>
        <item>str_todouble</item>
@@ -1021,8 +1021,8 @@ Index: kommander/editor/kommander-new.xml
    </general>
 Index: kommander/editor/mainwindowactions.cpp
 ===================================================================
---- kommander/editor/mainwindowactions.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/editor/mainwindowactions.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/editor/mainwindowactions.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/editor/mainwindowactions.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -476,6 +476,14 @@
    connect(this, SIGNAL(hasActiveForm(bool)), a, SLOT(setEnabled(bool)));
    a->plug(fileTb);
@@ -1040,8 +1040,8 @@ Index: kommander/editor/mainwindowactions.cpp
  void MainWindow::setupWindowActions()
 Index: kommander/plugin/specialinformation.cpp
 ===================================================================
---- kommander/plugin/specialinformation.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/plugin/specialinformation.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/plugin/specialinformation.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/plugin/specialinformation.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -379,6 +379,10 @@
       i18n("Return the widget's geometry as <i>x y w h</i>. This is useful for positioning a created widget."), 1);
    insertInternal(DCOP::hasFocus, "hasFocus(QString widget)", 
@@ -1079,8 +1079,8 @@ Index: kommander/plugin/specialinformation.cpp
    insert(Input::savefile, "savefile(QString startdir, QString filter, QString caption)", 
 Index: kommander/plugin/specials.h
 ===================================================================
---- kommander/plugin/specials.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/plugin/specials.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/plugin/specials.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/plugin/specials.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -32,7 +32,7 @@
      currentItem, currentRow, execute, findItem, global, insertColumn, insertItem, insertItems, insertRow, 
      item, itemDepth, itemPath, removeColumn, removeItem, removeRow, selection, setAssociatedText, setChecked, 
@@ -1110,8 +1110,8 @@ Index: kommander/plugin/specials.h
  namespace File
 Index: kommander/widgets/treewidget.cpp
 ===================================================================
---- kommander/widgets/treewidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/treewidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/treewidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/treewidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -143,6 +143,8 @@
  
  int TreeWidget::itemToIndex(QListViewItem* item)
@@ -1220,8 +1220,8 @@ Index: kommander/widgets/treewidget.cpp
        break;
 Index: kommander/widgets/execbutton.cpp
 ===================================================================
---- kommander/widgets/execbutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/execbutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/execbutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/execbutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -25,6 +25,9 @@
  #include <qstring.h>
  #include <qstringlist.h>
@@ -1322,8 +1322,8 @@ Index: kommander/widgets/execbutton.cpp
    }
 Index: kommander/widgets/textbrowser.cpp
 ===================================================================
---- kommander/widgets/textbrowser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/textbrowser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/textbrowser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/textbrowser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -14,14 +14,26 @@
   *                                                                         *
   ***************************************************************************/
@@ -1385,8 +1385,8 @@ Index: kommander/widgets/textbrowser.cpp
        break;
 Index: kommander/widgets/aboutdialog.cpp
 ===================================================================
---- kommander/widgets/aboutdialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/aboutdialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/aboutdialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/aboutdialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -224,6 +224,15 @@
    setAssociatedText(KommanderWidget::evalAssociatedText( populationText()));
  }
@@ -1405,8 +1405,8 @@ Index: kommander/widgets/aboutdialog.cpp
    switch (function) {
 Index: kommander/widgets/textedit.cpp
 ===================================================================
---- kommander/widgets/textedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/textedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/textedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/textedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -30,6 +30,15 @@
  enum Functions {
    FirstFunction = 450, //CHANGE THIS NUMBER TO AN UNIQUE ONE!!!
@@ -1500,8 +1500,8 @@ Index: kommander/widgets/textedit.cpp
        QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
 Index: kommander/widgets/dialog.cpp
 ===================================================================
---- kommander/widgets/dialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/dialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/dialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/dialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -14,6 +14,7 @@
   *                                                                         *
   ***************************************************************************/
@@ -1572,8 +1572,8 @@ Index: kommander/widgets/dialog.cpp
    }
 Index: kommander/widgets/spinboxint.h
 ===================================================================
---- kommander/widgets/spinboxint.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/spinboxint.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/spinboxint.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/spinboxint.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -56,8 +56,12 @@
  signals:
    void widgetOpened();
@@ -1589,8 +1589,8 @@ Index: kommander/widgets/spinboxint.h
  
 Index: kommander/widgets/lineedit.h
 ===================================================================
---- kommander/widgets/lineedit.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/lineedit.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/lineedit.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/lineedit.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -60,10 +60,12 @@
    void widgetTextChanged(const QString &);
    void contextMenuRequested(int xpos, int ypos);
@@ -1606,8 +1606,8 @@ Index: kommander/widgets/lineedit.h
  
 Index: kommander/widgets/execbutton.h
 ===================================================================
---- kommander/widgets/execbutton.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/execbutton.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/execbutton.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/execbutton.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -77,8 +77,10 @@
  signals:
    void widgetOpened();
@@ -1622,8 +1622,8 @@ Index: kommander/widgets/execbutton.h
    // Whether pressing execubtton should block GUI until process ends
 Index: kommander/widgets/toolbox.cpp
 ===================================================================
---- kommander/widgets/toolbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/toolbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/toolbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/toolbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -121,7 +121,7 @@
  
  bool ToolBox::isFunctionSupported(int f)
@@ -1648,8 +1648,8 @@ Index: kommander/widgets/toolbox.cpp
    }
 Index: kommander/widgets/table.h
 ===================================================================
---- kommander/widgets/table.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/table.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/table.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/table.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -52,12 +52,14 @@
      virtual QString handleDCOP(int function, const QStringList& args);
      virtual bool isFunctionSupported(int function);
@@ -1667,8 +1667,8 @@ Index: kommander/widgets/table.h
    private:
 Index: kommander/widgets/spinboxint.cpp
 ===================================================================
---- kommander/widgets/spinboxint.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/spinboxint.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/spinboxint.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/spinboxint.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -87,9 +87,21 @@
    emit widgetOpened();
  }
@@ -1717,8 +1717,8 @@ Index: kommander/widgets/spinboxint.cpp
    }
 Index: kommander/widgets/lineedit.cpp
 ===================================================================
---- kommander/widgets/lineedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/lineedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/lineedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/lineedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -46,6 +46,12 @@
    emit gotFocus();
  }
@@ -1758,10 +1758,28 @@ Index: kommander/widgets/lineedit.cpp
      default:
        return KommanderWidget::handleDCOP(function, args);
    }
+Index: kommander/widgets/pixmaplabel.cpp
+===================================================================
+--- kommander/widgets/pixmaplabel.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/pixmaplabel.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
+@@ -94,6 +94,13 @@
+   emit widgetOpened();
+ }
+ 
++void PixmapLabel::contextMenuEvent( QContextMenuEvent * e )
++{
++  e->accept();
++  QPoint p = e->globalPos();
++  emit contextMenuRequested(p.x(), p.y());
++}
++
+ bool PixmapLabel::isFunctionSupported(int f)
+ {
+   return f == DCOP::text || f == DCOP::setText || f == DCOP::clear || f == DCOP::geometry;
 Index: kommander/widgets/aboutdialog.h
 ===================================================================
---- kommander/widgets/aboutdialog.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/aboutdialog.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/aboutdialog.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/aboutdialog.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -43,6 +43,7 @@
  
  public slots:
@@ -1772,8 +1790,8 @@ Index: kommander/widgets/aboutdialog.h
    void initialize(const QString& appName, const QString &icon, const QString& version, const QString& copyright);  
 Index: kommander/widgets/scriptobject.h
 ===================================================================
---- kommander/widgets/scriptobject.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/scriptobject.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/scriptobject.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/scriptobject.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -52,6 +52,7 @@
    virtual void populate();
    virtual void execute();
@@ -1784,8 +1802,8 @@ Index: kommander/widgets/scriptobject.h
    virtual void execute(bool);
 Index: kommander/widgets/groupbox.cpp
 ===================================================================
---- kommander/widgets/groupbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/groupbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/groupbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/groupbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -23,11 +23,14 @@
  #include <qevent.h>
  #include <qgroupbox.h>
@@ -1836,8 +1854,8 @@ Index: kommander/widgets/groupbox.cpp
    }
 Index: kommander/widgets/combobox.cpp
 ===================================================================
---- kommander/widgets/combobox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/combobox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/combobox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/combobox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -30,7 +30,7 @@
  #include "combobox.h"
  
@@ -1875,8 +1893,8 @@ Index: kommander/widgets/combobox.cpp
        break;
 Index: kommander/widgets/statusbar.cpp
 ===================================================================
---- kommander/widgets/statusbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/statusbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/statusbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/statusbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -91,7 +91,7 @@
  
  bool StatusBar::isFunctionSupported(int f)
@@ -1905,8 +1923,8 @@ Index: kommander/widgets/statusbar.cpp
    }
 Index: kommander/widgets/tabwidget.cpp
 ===================================================================
---- kommander/widgets/tabwidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/tabwidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/tabwidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/tabwidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -23,6 +23,7 @@
  #include <qstringlist.h>
  #include <qevent.h>
@@ -2002,8 +2020,8 @@ Index: kommander/widgets/tabwidget.cpp
    }
 Index: kommander/widgets/slider.cpp
 ===================================================================
---- kommander/widgets/slider.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/slider.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/slider.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/slider.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -84,7 +84,7 @@
  
  bool Slider::isFunctionSupported(int f)
@@ -2032,8 +2050,8 @@ Index: kommander/widgets/slider.cpp
    }
 Index: kommander/widgets/table.cpp
 ===================================================================
---- kommander/widgets/table.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/table.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/table.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/table.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -41,6 +41,8 @@
    TBL_setColumnReadOnly,
    TBL_setRowReadOnly,
@@ -2157,8 +2175,8 @@ Index: kommander/widgets/table.cpp
        QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
 Index: kommander/widgets/progressbar.cpp
 ===================================================================
---- kommander/widgets/progressbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/progressbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/progressbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/progressbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -14,6 +14,7 @@
   ***************************************************************************/
  
@@ -2235,8 +2253,8 @@ Index: kommander/widgets/progressbar.cpp
    }
 Index: kommander/widgets/scriptobject.cpp
 ===================================================================
---- kommander/widgets/scriptobject.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/scriptobject.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/scriptobject.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/scriptobject.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -126,6 +126,14 @@
    executeProcess(true);
  }
@@ -2252,10 +2270,25 @@ Index: kommander/widgets/scriptobject.cpp
  void ScriptObject::execute(int i)
  {
    m_params.clear();
+Index: kommander/widgets/pixmaplabel.h
+===================================================================
+--- kommander/widgets/pixmaplabel.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/pixmaplabel.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
+@@ -56,8 +56,10 @@
+ signals:
+   void widgetOpened();
+   void widgetTextChanged(const QString&);
++  void contextMenuRequested(int xpos, int ypos);
+ protected:
+   void showEvent(QShowEvent *e);
++  void contextMenuEvent( QContextMenuEvent * e );
+ private:
+ };
+ 
 Index: kommander/widgets/treewidget.h
 ===================================================================
---- kommander/widgets/treewidget.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/treewidget.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/treewidget.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/treewidget.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -68,6 +68,7 @@
    void showEvent(QShowEvent *e);
    void contextMenuEvent( QContextMenuEvent * e );
@@ -2266,8 +2299,8 @@ Index: kommander/widgets/treewidget.h
    QListViewItem* indexToItem(int index);
 Index: kommander/widgets/label.cpp
 ===================================================================
---- kommander/widgets/label.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/label.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/label.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/label.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -88,7 +88,7 @@
  
  bool Label::isFunctionSupported(int f)
@@ -2302,8 +2335,8 @@ Index: kommander/widgets/label.cpp
    }
 Index: kommander/widgets/listbox.cpp
 ===================================================================
---- kommander/widgets/listbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/listbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/listbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/listbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -96,7 +96,7 @@
    return f == DCOP::text || f == DCOP::setText || f == DCOP::selection || f == DCOP::setSelection ||
      f == DCOP::insertItems || f == DCOP::insertItem || f == DCOP::removeItem || f == DCOP::clear ||
@@ -2332,8 +2365,8 @@ Index: kommander/widgets/listbox.cpp
    }
 Index: kommander/widgets/checkbox.cpp
 ===================================================================
---- kommander/widgets/checkbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/checkbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/checkbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/checkbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -102,7 +102,7 @@
  
  bool CheckBox::isFunctionSupported(int f)
@@ -2368,8 +2401,8 @@ Index: kommander/widgets/checkbox.cpp
    }
 Index: kommander/widgets/buttongroup.cpp
 ===================================================================
---- kommander/widgets/buttongroup.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/buttongroup.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/buttongroup.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/buttongroup.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -14,6 +14,7 @@
   *                                                                         *
   ***************************************************************************/
@@ -2445,8 +2478,8 @@ Index: kommander/widgets/buttongroup.cpp
    }
 Index: kommander/widgets/radiobutton.cpp
 ===================================================================
---- kommander/widgets/radiobutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
-+++ kommander/widgets/radiobutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+--- kommander/widgets/radiobutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1021035)
++++ kommander/widgets/radiobutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1021035)
 @@ -101,7 +101,7 @@
  
  bool RadioButton::isFunctionSupported(int f)
