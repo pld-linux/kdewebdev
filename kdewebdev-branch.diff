@@ -1,7 +1,7 @@
 Index: AUTHORS
 ===================================================================
---- AUTHORS	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ AUTHORS	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- AUTHORS	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ AUTHORS	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -12,8 +12,7 @@
        Nicolas Deschildre <ndeschildre@kdewebdev.org>
        Paulo Moura Guedes <moura@kdewebdev.org>
@@ -14,8 +14,8 @@ Index: AUTHORS
  Kommander (kommander):
 Index: quanta/project/projectupload.cpp
 ===================================================================
---- quanta/project/projectupload.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ quanta/project/projectupload.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- quanta/project/projectupload.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ quanta/project/projectupload.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -375,7 +375,7 @@
      buttonUpload->setEnabled(false);
      KURL u = *baseUrl;
@@ -27,8 +27,8 @@ Index: quanta/project/projectupload.cpp
        return;
 Index: lib/qextfileinfo.cpp
 ===================================================================
---- lib/qextfileinfo.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ lib/qextfileinfo.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- lib/qextfileinfo.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ lib/qextfileinfo.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -192,11 +192,11 @@
  {
    int i = 0;
@@ -54,8 +54,8 @@ Index: lib/qextfileinfo.cpp
          if (!dirListItems.contains(u) && u.url() != m_listStartURL && !u.isParentOf(item->url()))
 Index: klinkstatus/src/engine/linkchecker.cpp
 ===================================================================
---- klinkstatus/src/engine/linkchecker.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ klinkstatus/src/engine/linkchecker.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- klinkstatus/src/engine/linkchecker.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ klinkstatus/src/engine/linkchecker.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -72,41 +72,43 @@
      KURL url(linkStatus()->absoluteUrl());
      Q_ASSERT(url.isValid());
@@ -130,10 +130,57 @@ Index: klinkstatus/src/engine/linkchecker.cpp
  }
  
  void LinkChecker::slotTimeOut()
+Index: kommander/widget/parser.h
+===================================================================
+--- kommander/widget/parser.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widget/parser.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -68,6 +68,16 @@
+   void unsetArray(const QString& name, const QString& key = QString::null);
+   // array value 
+   ParseNode arrayValue(const QString& name, const QString& key) const;
++  // access 2D array 
++  const QMap<QString, QMap<QString, ParseNode> >& matrix(const QString& name) const;
++  // check if this is name of a 2D array
++  bool isMatrix(const QString& name) const;
++  // set array key
++  void setMatrix(const QString& name, const QString& keyr, const QString& keyc, ParseNode value);
++  // unset array key or whole array
++  void unsetMatrix(const QString& name, const QString& keyr = QString::null, const QString& keyc = QString::null);
++  // array value 
++  ParseNode matrixValue(const QString& name, const QString& keyr, const QString& keyc) const;
+   // get associated widget
+   KommanderWidget* currentWidget() const;
+ 
+@@ -133,6 +143,8 @@
+   void insertNode(ParseNode p, int line);
+   // next item to be parsed
+   ParseNode next() const;
++  // next is Else or Else && If?
++  bool nextElseIf();
+   // check if next item is keyword k, if so - go further, if no, set error
+   bool tryKeyword(Parse::Keyword k, Parse::Mode mode = Parse::Execute);
+   // check if next item is a variable, if so, return its name
+@@ -169,12 +181,16 @@
+   QMap<QString, ParseNode> m_variables;
+   // arrays
+   QMap<QString, QMap<QString, ParseNode> > m_arrays;
++  // 2D arrays
++  QMap<QString, QMap<QString, QMap<QString, ParseNode> > > m_matrices;
+   // Kommander 
+   KommanderWidget* m_widget;
+   // global variables
+   static QMap<QString, ParseNode> m_globalVariables;
+   // global arrays
+   static QMap<QString, QMap<QString, ParseNode> > m_globalArrays;
++  // global 2D arrays
++  static QMap<QString, QMap<QString, QMap<QString, ParseNode> > > m_globalMatrices;
+ };
+ 
+ #endif
 Index: kommander/widget/functionlib.cpp
 ===================================================================
---- kommander/widget/functionlib.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widget/functionlib.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widget/functionlib.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widget/functionlib.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -120,6 +120,44 @@
    return params[0].toString().isEmpty();
  }
@@ -204,21 +251,45 @@ Index: kommander/widget/functionlib.cpp
    registerFunction("input_savefile", Function(&f_inputSaveFile, ValueString, ValueString, ValueString, ValueString, 0));
 Index: kommander/widget/parsenode.h
 ===================================================================
---- kommander/widget/parsenode.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widget/parsenode.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
-@@ -23,7 +23,7 @@
+--- kommander/widget/parsenode.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widget/parsenode.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -23,8 +23,8 @@
  {
    enum Keyword {For, To, Step, End, While, Do, Foreach, In, If, Then, Else, Elseif, Endif, Switch, Case, 
      Break, Continue, Exit, Dot, Semicolon, Comma, Assign, Less, LessEqual, Greater, GreaterEqual, Equal, NotEqual, 
 -    Not, And, Or, False, True, LeftParenthesis, RightParenthesis, LeftBracket, RightBracket,
-+    Not, And, Or, False, True, LeftParenthesis, RightParenthesis, LeftBracket, RightBracket, LeftCurlyBrace, RightCurlyBrace, PlusEqual,
-     Plus, Minus, Multiply, Divide, Mod, LastRealKeyword = Mod, Variable, Invalid};
+-    Plus, Minus, Multiply, Divide, Mod, LastRealKeyword = Mod, Variable, Invalid};
++    Not, And, Or, False, True, LeftParenthesis, RightParenthesis, LeftBracket, DoubleBracket, RightBracket, LeftCurlyBrace, RightCurlyBrace, PlusEqual, MinusEqual, Increment, Decrement,
++    Plus, Minus, Multiply, Divide, Mod, LastRealKeyword = Mod, Variable, Invalid, Array, Matrix};
  
    enum KeywordGroup {GroupComparison, GroupAdd, GroupMultiply, GroupMisc};
+   enum ValueType {ValueString, ValueInt, ValueDouble, ValueValue = ValueDouble, ValueKeyword,
+@@ -74,8 +74,12 @@
+   bool isKeyword(Parse::Keyword k) const;
+   /* Check if current value is a variable */
+   bool isVariable() const;
++  /* Check if current value is an Array */
++  bool isArray() const;
+   /* Return the name of variable */
+   QString variableName() const;
++  /* Return the name of array */
++  QString arrayName() const;
+   /* Return error message if applicable */
+   QString errorMessage() const;
+   /* Calculate common type for two nodes */
+@@ -100,6 +104,8 @@
+   void setValue(const QString& s);
+   /* set value as variable */
+   void setVariable(const QString& name);
++  /* set value as array */
++  void setArray(const QString& name);
+   /* check if it is correct value */
+   bool isValue() const;
+   /* for setting some context information, f. e. for bug reporting */
 Index: kommander/widget/parserdata.cpp
 ===================================================================
---- kommander/widget/parserdata.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widget/parserdata.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widget/parserdata.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widget/parserdata.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -59,6 +59,8 @@
    m_keywords["else"] =  Else;
    m_keywords["elseif"] =  Elseif;
@@ -228,26 +299,237 @@ Index: kommander/widget/parserdata.cpp
    m_keywords["switch"] =  Switch;
    m_keywords["case"] =  Case;
    m_keywords["while"] =  While;
-@@ -96,6 +98,7 @@
+@@ -90,12 +92,17 @@
+   m_keywords["("] =  LeftParenthesis;
+   m_keywords[")"] =  RightParenthesis;
+   m_keywords["["] =  LeftBracket;
++  m_keywords["]["] =  DoubleBracket;
+   m_keywords["]"] =  RightBracket;
+   m_keywords["+"] = Plus;
+   m_keywords["-"] = Minus;
    m_keywords["*"] = Multiply;
    m_keywords["/"] = Divide;
    m_keywords["%"] = Mod;
 +  m_keywords["+="] = PlusEqual;
++  m_keywords["-="] = MinusEqual;
++  m_keywords["++"] = Increment;
++  m_keywords["--"] = Decrement;
    m_keywords["mod"] = Mod;
    
    m_groups[Less] = GroupComparison;
 Index: kommander/widget/parser.cpp
 ===================================================================
---- kommander/widget/parser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widget/parser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
-@@ -499,6 +499,21 @@
-     if (mode == Execute)
-       setVariable(var, p);
-   }
-+  else if (tryKeyword(PlusEqual, CheckOnly))
+--- kommander/widget/parser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widget/parser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -99,6 +99,15 @@
+     {
+       while (start < s.length() && s[start] != '\n')
+         start++;
++    }                               // enable /* */ block comments
++    else if (s[start] == '/' && start < s.length() +1 && s[start+1] == '*')
++    {
++      start += 2;
++      while (s[start] != '*' && start < s.length() +1 && s[start+1] != '/')
++      {
++        start++;
++      }
++      start += 2;
+     }                              // special keyword: <>
+     else if (m_data->stringToKeyword(s.mid(start, 2)) <= LastRealKeyword)
+     {
+@@ -194,10 +203,12 @@
+     }
+   return p;
+ }
+-
++//attempting to allow assign or copy of array, so far with no joy
+ ParseNode Parser::parseValue(Mode mode)
+ {
+   ParseNode p = next();
++  //QString p2 = QString(p.toString());
++  //qDebug("parseValue p2 = "+p2);
+   if (isFunction())
+     return parseFunction(mode);
+   else if (isWidget())
+@@ -207,6 +218,14 @@
+     if (tryKeyword(LeftBracket, CheckOnly))
+     {
+       QString index = parseValue(mode).toString();
++      if (tryKeyword(DoubleBracket, CheckOnly)) 
++      {//2D array "matrix"
++        //qDebug("Found double bracket: parseValue");
++        QString index2 = parseValue(mode).toString();
++        tryKeyword(RightBracket);
++        QString arr = p.variableName();
++        return matrixValue(arr, index, index2);
++      }
+       tryKeyword(RightBracket);
+       QString arr = p.variableName();
+       return arrayValue(arr, index);
+@@ -242,6 +261,11 @@
+     return ParseNode(0);
+   else if (tryKeyword(True, CheckOnly))
+     return ParseNode(1);
++/*  else if (isArray(p2))
 +  {
-+    ParseNode p = parseExpression(mode);
-+    if (mode == Execute)
++    qDebug("returning array fpr p2");
++    return p2;
++  }*/
+   else if (p.isKeyword())
+     setError(i18n("Expected value"));
+   else // single value
+@@ -484,21 +508,194 @@
+ ParseNode Parser::parseAssignment(Mode mode)
+ {
+   QString var = nextVariable();
++  //qDebug("var = "+var+" Pos:"+QString::number(m_start));
+   if (tryKeyword(LeftBracket, CheckOnly))
+   {
+     QString index = parseValue(mode).toString();
+-    tryKeyword(RightBracket);
+-    tryKeyword(Assign);
++    if (tryKeyword(DoubleBracket, CheckOnly)) 
++    {//2D array "matrix"
++      ParseNode p1 = next(); //move along...
++      QString index2 = parseValue(mode).toString();
++      tryKeyword(RightBracket);
++      p1 = next();
++      ParseNode p2 = matrixValue(var, index, index2);
++      if (p1.isKeyword(PlusEqual))
++      {
++        tryKeyword(PlusEqual);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++        {
++          if (p2.type() == ValueString)
++            p = QString(p2.toString() + p.toString());
++          else if (p2.type() == ValueDouble)
++            p = p2.toDouble() + p.toDouble();
++          else
++          p = p2.toInt() + p.toInt();
++          setMatrix(var, index, index2, p);
++        }
++      }
++      else if (p1.isKeyword(MinusEqual))
++      {
++        tryKeyword(MinusEqual);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++        {
++          if (p2.type() == ValueDouble)
++            p = p2.toDouble() - p.toDouble();
++          else
++            p = p2.toInt() - p.toInt();
++          setMatrix(var, index, index2, p);
++        }
++      }
++      else if (p1.isKeyword(Increment))
++      {
++        tryKeyword(Increment);
++        if (mode == Execute)
++        {
++          p2 = p2.toInt() + 1;
++          setMatrix(var, index, index2, p2);
++        }
++      }
++      else if (p1.isKeyword(Decrement))
++      {
++        tryKeyword(Decrement);
++        if (mode == Execute)
++        {
++          p2 = p2.toInt() - 1;
++          setMatrix(var, index, index2, p2);
++        }
++      }
++      else
++      {
++        tryKeyword(Assign);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++          setMatrix(var, index, index2, p);
++      }
++    }
++    else
++    {
++      tryKeyword(RightBracket);
++      ParseNode p1 = next();
++      // seems awkward and pedantic but array values are now handled like variables
++      // for special assign with oparator
++      ParseNode p2 = arrayValue(var, index);
++      if (p1.isKeyword(PlusEqual))
++      {
++        tryKeyword(PlusEqual);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++        {
++          if (p2.type() == ValueString)
++            p = QString(p2.toString() + p.toString());
++          else if (p2.type() == ValueDouble)
++            p = p2.toDouble() + p.toDouble();
++          else
++          p = p2.toInt() + p.toInt();
++          setArray(var, index, p);
++        }
++      }
++      else if (p1.isKeyword(MinusEqual))
++      {
++        tryKeyword(MinusEqual);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++        {
++          if (p2.type() == ValueDouble)
++            p = p2.toDouble() - p.toDouble();
++          else
++            p = p2.toInt() - p.toInt();
++          setArray(var, index, p);
++        }
++      }
++      else if (p1.isKeyword(Increment))
++      {
++        tryKeyword(Increment);
++        if (mode == Execute)
++        {
++          p2 = p2.toInt() + 1;
++          setArray(var, index, p2);
++        }
++      }
++      else if (p1.isKeyword(Decrement))
++      {
++        tryKeyword(Decrement);
++        if (mode == Execute)
++        {
++          p2 = p2.toInt() - 1;
++          setArray(var, index, p2);
++        }
++      }
++      else
++      {
++        tryKeyword(Assign);
++        ParseNode p = parseExpression(mode);
++        if (mode == Execute)
++          setArray(var, index, p);
++      }
++    }
++  }
++  else if (tryKeyword(Assign, CheckOnly))
++  {
+     ParseNode p = parseExpression(mode);
+     if (mode == Execute)
+-      setArray(var, index, p);
++    {
++      QString p2 = QString(p.toString()); //arrays are not found?
++      //qDebug("p2 = "+p2);
++      if (isArray(p2))
++        const QMap<QString, ParseNode> var = array(p2);
++      else
++        setVariable(var, p);
++    }
+   }
+-  else if (tryKeyword(Assign, CheckOnly))
++  else if (tryKeyword(PlusEqual, CheckOnly))
+   {
+     ParseNode p = parseExpression(mode);
+     if (mode == Execute)
 +    {
 +      ParseNode p2 = variable(var);
 +      if (p2.type() == ValueString)
@@ -256,13 +538,46 @@ Index: kommander/widget/parser.cpp
 +        p = p2.toDouble() + p.toDouble();
 +      else
 +        p = p2.toInt() + p.toInt();
+       setVariable(var, p);
++    }
+   }
++  else if (tryKeyword(MinusEqual, CheckOnly))
++  {
++    ParseNode p = parseExpression(mode);
++    if (mode == Execute)
++    {
++      ParseNode p2 = variable(var);
++      if (p2.type() == ValueDouble)
++        p = p2.toDouble() - p.toDouble();
++      else
++        p = p2.toInt() - p.toInt();
++      setVariable(var, p);
++    }
++  }
++  else if (tryKeyword(Increment, CheckOnly))
++  {
++    //ParseNode p = parseExpression(mode);
++    if (mode == Execute)
++    {
++      ParseNode p = variable(var);
++      p = p.toInt() + 1;
++      setVariable(var, p);
++    }
++  }
++  else if (tryKeyword(Decrement, CheckOnly))
++  {
++    //ParseNode p = parseExpression(mode);
++    if (mode == Execute)
++    {
++      ParseNode p = variable(var);
++      p = p.toInt() - 1;
 +      setVariable(var, p);
 +    }
 +  }
    else if (tryKeyword(Dot, CheckOnly))
    {
      QString value = variable(var).toString();
-@@ -529,11 +544,14 @@
+@@ -529,11 +726,14 @@
    ParseNode p = next();
    Flow flow = FlowStandard;
    bool matched = false;
@@ -278,13 +593,14 @@ Index: kommander/widget/parser.cpp
      bool condition = !matched && p.toBool();
      if (condition)
      {
-@@ -544,14 +562,21 @@
+@@ -544,29 +744,52 @@
      else 
        parseBlock(CheckOnly);
      matched = matched || p.toBool();
+-  } while (next().isKeyword(Elseif));
 +    if (!thenFound)
 +      tryKeyword(RightCurlyBrace);
-   } while (next().isKeyword(Elseif));
++  } while (nextElseIf() == true);
 +  bool braceFound = false;
    if (tryKeyword(Else, CheckOnly))
    {
@@ -300,7 +616,24 @@ Index: kommander/widget/parser.cpp
    tryKeyword(Endif);
    return flow;
  }
-@@ -562,11 +587,13 @@
+ 
++bool Parser::nextElseIf()
++{
++  ParseNode p1 = next();
++  if (p1.isKeyword(Elseif))
++    return true;
++  else 
++  {
++    ParseNode p2 = next();
++    if (p1.isKeyword(Else) && p2.isKeyword(If) )
++      return true;
++  }
++  return false;
++}
++
+ Parse::Flow Parser::parseWhile(Mode mode)
+ {
+   m_start++;
    int start = m_start;
    bool running = true;
    Parse::Flow flow = FlowStandard;
@@ -315,7 +648,7 @@ Index: kommander/widget/parser.cpp
        break;
      running = p.toBool();
      flow = parseBlock(running ? mode : CheckOnly);
-@@ -575,7 +602,10 @@
+@@ -575,7 +798,10 @@
    }
    if (flow != FlowExit)
    {
@@ -327,7 +660,7 @@ Index: kommander/widget/parser.cpp
      return FlowStandard;
    }
    else 
-@@ -593,10 +623,13 @@
+@@ -593,10 +819,13 @@
    int step = 1;
    if (tryKeyword(Step, CheckOnly))
      step = parseExpression(mode).toInt();
@@ -343,7 +676,7 @@ Index: kommander/widget/parser.cpp
    {
      for (int i = start; i <= end; i+=step)
      {
-@@ -606,11 +639,24 @@
+@@ -606,11 +835,24 @@
        if (flow == FlowBreak || flow == FlowExit)
          break;
      }
@@ -369,7 +702,7 @@ Index: kommander/widget/parser.cpp
      return FlowStandard;
    }
    else 
-@@ -623,7 +669,9 @@
+@@ -623,7 +865,9 @@
    QString var = nextVariable();
    tryKeyword(In);
    QString arr = nextVariable();
@@ -380,7 +713,7 @@ Index: kommander/widget/parser.cpp
    int start = m_start;
    Parse::Flow flow = FlowStandard;
    if (isArray(arr) && array(arr).count())
-@@ -642,7 +690,10 @@
+@@ -642,7 +886,10 @@
      parseBlock(CheckOnly);
    if (flow != FlowExit)
    {
@@ -392,7 +725,7 @@ Index: kommander/widget/parser.cpp
      return FlowStandard;
    }
    else 
-@@ -655,6 +706,8 @@
+@@ -655,6 +902,8 @@
    QString var = nextVariable();
    ParseNode caseValue = variable(var);
    bool executed = false;
@@ -401,7 +734,7 @@ Index: kommander/widget/parser.cpp
    tryKeyword(Semicolon, CheckOnly);
    while (tryKeyword(Case, CheckOnly))
    {
-@@ -666,7 +719,10 @@
+@@ -666,7 +915,10 @@
    }
    if (tryKeyword(Else, CheckOnly))
      parseBlock(executed ? CheckOnly : mode);
@@ -413,7 +746,7 @@ Index: kommander/widget/parser.cpp
  }
  
  Flow Parser::parseCommand(Mode mode)
-@@ -740,7 +796,7 @@
+@@ -740,7 +992,7 @@
      if (k == Dot)
        setError(i18n("Expected '%1'<br><br>Possible cause of the error is having a variable with the same name as a widget").arg(m_data->keywordToString(k)));
      else
@@ -422,10 +755,82 @@ Index: kommander/widget/parser.cpp
    }
    return false;
  }
+@@ -886,8 +1138,64 @@
+     return m_arrays[name].contains(key) ? m_arrays[name][key] : ParseNode();
+ }
+ 
++// 2D arrays "Matrix"
++const QMap<QString, QMap<QString, ParseNode> >& Parser::matrix(const QString& name) const
++{
++  if (isGlobal(name))
++    return m_globalMatrices[name];
++  else
++    return m_matrices[name];
++}
+ 
++bool Parser::isMatrix(const QString& name) const
++{
++  return m_matrices.contains(name) || m_globalMatrices.contains(name);
++}
+ 
++void Parser::setMatrix(const QString& name, const QString& keyr, const QString& keyc, ParseNode value)
++{
++  if (isGlobal(name))
++    m_globalMatrices[name][keyr][keyc] = value;
++  else
++    m_matrices[name][keyr][keyc] = value;
++}
++
++void Parser::unsetMatrix(const QString& name, const QString& keyr, const QString& keyc)
++{
++  if (isGlobal(name))
++  {
++    if (keyr.isNull() && keyc.isNull())
++      m_globalMatrices.remove(name);
++    else if (isMatrix(name))
++    {
++      m_globalMatrices[name][keyr].remove(keyc);
++      m_globalMatrices[name].remove(keyr);
++    }
++  }
++  else
++  {
++    if (keyr.isNull() && keyc.isNull())
++      m_matrices.remove(name);
++    else if (isMatrix(name))
++    {
++      m_matrices[name][keyr].remove(keyc);
++      m_matrices[name].remove(keyr);
++    }
++  }
++}
++
++ParseNode Parser::matrixValue(const QString& name, const QString& keyr, const QString& keyc) const
++{
++  if (!isMatrix(name))
++    return ParseNode();
++  if (isGlobal(name))
++    return m_globalMatrices[name].contains(keyr) && m_globalMatrices[name][keyr].contains(keyc) ? m_globalMatrices[name][keyr][keyc] : ParseNode();
++  else
++    return m_matrices[name].contains(keyr) && m_matrices[name][keyr].contains(keyc) ? m_matrices[name][keyr][keyc] : ParseNode();
++}
++
++
++
+ KommanderWidget* Parser::currentWidget() const
+ {
+   return m_widget;
+@@ -895,5 +1203,5 @@
+ 
+ QMap<QString, ParseNode> Parser::m_globalVariables;
+ QMap<QString, QMap<QString, ParseNode> > Parser::m_globalArrays;
++QMap<QString, QMap<QString, QMap<QString, ParseNode> > > Parser::m_globalMatrices;
+ 
+-
 Index: kommander/editor/mainwindow.cpp
 ===================================================================
---- kommander/editor/mainwindow.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/editor/mainwindow.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/editor/mainwindow.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/editor/mainwindow.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -463,6 +463,70 @@
  }
  
@@ -499,8 +904,8 @@ Index: kommander/editor/mainwindow.cpp
    previewing = false;
 Index: kommander/editor/mainwindow.h
 ===================================================================
---- kommander/editor/mainwindow.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/editor/mainwindow.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/editor/mainwindow.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/editor/mainwindow.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -191,6 +191,7 @@
      void configureEditor();
  
@@ -511,8 +916,8 @@ Index: kommander/editor/mainwindow.h
      void activeWindowChanged( QWidget *w );
 Index: kommander/editor/kommander-new.xml
 ===================================================================
---- kommander/editor/kommander-new.xml	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/editor/kommander-new.xml	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/editor/kommander-new.xml	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/editor/kommander-new.xml	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -138,6 +138,10 @@
        <item>str_toint</item>
        <item>str_todouble</item>
@@ -524,15 +929,49 @@ Index: kommander/editor/kommander-new.xml
      </list>
      
      <list name="kmdrfile">
-@@ -186,6 +190,7 @@
+@@ -171,6 +175,7 @@
+     <list name="keywords">
+       <item> else </item>
+       <item> for </item>
++      <item> to </item>
+       <item> function </item>
+       <item> in </item>
+       <item> select </item>
+@@ -186,6 +191,11 @@
        <item> break </item>
        <item> continue </item>
        <item> exit </item>
 +      <item> switch </item>
++      <item> and </item>
++      <item> or </item>
++      <item> not </item>
++      <item> step </item>
      </list>
      
      <list name="booleans">
-@@ -239,6 +244,7 @@
+@@ -202,6 +212,7 @@
+       <!-- FindAll tries to interpret everything -->
+       <context attribute="Normal Text" lineEndContext="#stay" name="FindAll">
+       	<IncludeRules context="FindComments" />
++        <IncludeRules context="FindBlockComments" />
+       	<IncludeRules context="FindCommands" />
+ 	    <IncludeRules context="FindStrings" />
+ 	    <IncludeRules context="FindSubstitutions" />      
+@@ -213,6 +224,13 @@
+         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/" firstNonSpace="true"/>
+ 	    <RegExpr attribute="Normal Text" context="Comment" String="[\s;](?=/)" />
+       </context>
++      <!-- FindBlockComments consumes comments to end of block -->
++      <context attribute="Normal Text" lineEndContext="#stay" name="FindBlockComments">
++        <Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment" />
++      </context>
++      <context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
++        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
++      </context>
+       
+       <context attribute="Comment" lineEndContext="#pop" name="Comment">
+ 	     <IncludeRules context="##Alerts" />
+@@ -239,6 +257,7 @@
          <RegExpr attribute="Keyword" context="#stay" String="\belseif&noword;" beginRegion="if" endRegion="if"/>
          <RegExpr attribute="Keyword" context="#stay" String="\belse&noword;"  beginRegion="if" endRegion="if"/>
          <RegExpr attribute="Keyword" context="#stay" String="\bendif&noword;" endRegion="if"/>
@@ -540,7 +979,7 @@ Index: kommander/editor/kommander-new.xml
        	<!-- handle case as a special case -->
          <RegExpr attribute="Keyword" context="Case" String="\bcase&noword;" beginRegion="case" />
          <!-- handle command line options -->
-@@ -273,6 +279,8 @@
+@@ -273,6 +292,8 @@
          <DetectChar attribute="Normal Text" context="#pop" char=")" lookAhead="true"/>
          <DetectChar attribute="Normal Text" context="#pop" char="[" lookAhead="true"/>
          <DetectChar attribute="Normal Text" context="#pop" char="]" lookAhead="true"/>
@@ -549,10 +988,41 @@ Index: kommander/editor/kommander-new.xml
          <DetectChar attribute="KmdrMethod" context="DetectKmdrMethod" char="." lookAhead="true"/>
          <RegExpr attribute="Normal Text" context="#pop" String="[\s\=\;\+\-\*\/\%]+" />
       
+@@ -296,18 +317,18 @@
+       <context attribute="Normal Text" lineEndContext="#stay" name="FindStrings">
+ 	<DetectChar attribute="String SingleQ" context="StringSQ" char="'" />
+ 	<DetectChar attribute="String DoubleQ" context="StringDQ" char="&quot;" />
+-	<Detect2Chars attribute="String SingleQ" context="StringEsc" char="$" char1="'" />
+-	<Detect2Chars attribute="String Transl." context="StringDQ" char="$" char1="&quot;" />
++  <!-- <Detect2Chars attribute="String SingleQ" context="StringEsc" char="$" char1="'" /> -->
++  <!-- <Detect2Chars attribute="String Transl." context="StringDQ" char="$" char1="&quot;" /> -->
+       </context>
+             
+       <!-- FindSubstitutions goes after anything starting with $ and ` and their escapes -->
+       <context attribute="Normal Text" lineEndContext="#stay" name="FindSubstitutions">
+-	<RegExpr attribute="Variable" context="#stay" String="\$[*@#?$!_0-9-]" />
++        <!-- <RegExpr attribute="Variable" context="#stay" String="\$[*@#?$!_0-9-]" />
+ 	<RegExpr attribute="Variable" context="Subscript" String="\$&varname;\[" />
+ 	<RegExpr attribute="Variable" context="#stay" String="\$&varname;" />
+ 	<RegExpr attribute="Variable" context="#stay" String="\$\{[*@#?$!_0-9-]\}" />
+ 	<RegExpr attribute="Variable" context="#stay" String="\$\{#&varname;\}" />
+-	<RegExpr attribute="Variable" context="#stay" String="\$\{!&varname;\*?\}" />
++  <RegExpr attribute="Variable" context="#stay" String="\$\{!&varname;\*?\}" />-->
+ 	<RegExpr attribute="Variable" context="VarBrace" String="\$\{&varname;" />
+ 	<RegExpr attribute="Variable" context="VarBrace" String="\$\{[*@#?$!_0-9-](?=[:#%/])" />
+ 	<StringDetect attribute="Variable" context="ExprDblParenSubst" String="$((" beginRegion="expression" />
+@@ -535,6 +556,7 @@
+   <general>
+     <comments>
+       <comment name="singleLine" start="//"/>
++      <comment name="multiLine" start="/*" end="*/" />
+     </comments>
+     <keywords casesensitive="1" weakDeliminator="^%#[]$._{}:-" additionalDeliminator="`."/>
+   </general>
 Index: kommander/editor/mainwindowactions.cpp
 ===================================================================
---- kommander/editor/mainwindowactions.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/editor/mainwindowactions.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/editor/mainwindowactions.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/editor/mainwindowactions.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -476,6 +476,14 @@
    connect(this, SIGNAL(hasActiveForm(bool)), a, SLOT(setEnabled(bool)));
    a->plug(fileTb);
@@ -570,8 +1040,8 @@ Index: kommander/editor/mainwindowactions.cpp
  void MainWindow::setupWindowActions()
 Index: kommander/plugin/specialinformation.cpp
 ===================================================================
---- kommander/plugin/specialinformation.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/plugin/specialinformation.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/plugin/specialinformation.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/plugin/specialinformation.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -379,6 +379,10 @@
       i18n("Return the widget's geometry as <i>x y w h</i>. This is useful for positioning a created widget."), 1);
    insertInternal(DCOP::hasFocus, "hasFocus(QString widget)", 
@@ -609,8 +1079,8 @@ Index: kommander/plugin/specialinformation.cpp
    insert(Input::savefile, "savefile(QString startdir, QString filter, QString caption)", 
 Index: kommander/plugin/specials.h
 ===================================================================
---- kommander/plugin/specials.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/plugin/specials.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/plugin/specials.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/plugin/specials.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -32,7 +32,7 @@
      currentItem, currentRow, execute, findItem, global, insertColumn, insertItem, insertItems, insertRow, 
      item, itemDepth, itemPath, removeColumn, removeItem, removeRow, selection, setAssociatedText, setChecked, 
@@ -640,8 +1110,8 @@ Index: kommander/plugin/specials.h
  namespace File
 Index: kommander/widgets/treewidget.cpp
 ===================================================================
---- kommander/widgets/treewidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/treewidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/treewidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/treewidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -143,6 +143,8 @@
  
  int TreeWidget::itemToIndex(QListViewItem* item)
@@ -750,17 +1220,19 @@ Index: kommander/widgets/treewidget.cpp
        break;
 Index: kommander/widgets/execbutton.cpp
 ===================================================================
---- kommander/widgets/execbutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/execbutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
-@@ -25,6 +25,7 @@
+--- kommander/widgets/execbutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/execbutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -25,6 +25,9 @@
  #include <qstring.h>
  #include <qstringlist.h>
  #include <qwidget.h>
 +#include <qpopupmenu.h>
++#include <qapplication.h>
++#include <qwidgetlist.h>
  
  /* OTHER INCLUDES */
  #include <kommanderwidget.h>
-@@ -32,9 +33,17 @@
+@@ -32,9 +35,17 @@
  #include "execbutton.h"
  #include <myprocess.h>
  #include <iostream>
@@ -778,18 +1250,18 @@ Index: kommander/widgets/execbutton.cpp
  ExecButton::ExecButton(QWidget* a_parent, const char* a_name)
    : KPushButton(a_parent, a_name), KommanderWidget(this)
  {
-@@ -45,6 +54,10 @@
+@@ -45,6 +56,10 @@
    setWriteStdout(true);
    setBlockGUI(Button);
    connect(this, SIGNAL(clicked()), this, SLOT(startProcess()));
 +  
 +  KommanderPlugin::setDefaultGroup(Group::DCOP);
 +  KommanderPlugin::registerFunction(EB_isOn, "isOn(QString widget)",  i18n("For use only when button is togle type."), 1);
-+  //KommanderPlugin::registerFunction(EB_setPopup, "setPopup(QString widget, QString Menu)",  i18n("Associate a Kommander PopupMenu with this ExecButton."), 2);
++  KommanderPlugin::registerFunction(EB_setPopup, "setPopup(QString widget, QString Menu)",  i18n("Associate a Kommander PopupMenu with this ExecButton."), 2);
  }
  
  ExecButton::~ExecButton()
-@@ -154,9 +167,16 @@
+@@ -154,9 +169,16 @@
    emit widgetOpened();
  }
  
@@ -807,7 +1279,7 @@ Index: kommander/widgets/execbutton.cpp
  }
  
  QString ExecButton::handleDCOP(int function, const QStringList& args)
-@@ -170,12 +190,31 @@
+@@ -170,12 +192,40 @@
      case DCOP::execute:
        startProcess();
        break;
@@ -816,8 +1288,17 @@ Index: kommander/widgets/execbutton.cpp
 +      break;
 +    case EB_setPopup:
 +    {
-+      QPopupMenu *popup = dynamic_cast<QPopupMenu*>(widgetByName(args[0]));
-+      this->setPopup(popup);
++      QWidgetList  *list = QApplication::allWidgets();
++      QWidgetListIt it( *list );
++      QWidget * w;
++      while ( (w=it.current()) != 0 ) {  // for each widget...
++        ++it;
++        if (w->name() == args[0] && w->className() == "PopupMenu")
++        {
++          QPopupMenu *popup = dynamic_cast<QPopupMenu*>(w->child("unnamed", "KPopupMenu"));
++          this->setPopup(popup);
++        }
++      }
 +      break;
 +    }
      case DCOP::geometry:
@@ -841,9 +1322,9 @@ Index: kommander/widgets/execbutton.cpp
    }
 Index: kommander/widgets/textbrowser.cpp
 ===================================================================
---- kommander/widgets/textbrowser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/textbrowser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
-@@ -14,14 +14,25 @@
+--- kommander/widgets/textbrowser.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/textbrowser.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -14,14 +14,26 @@
   *                                                                         *
   ***************************************************************************/
  
@@ -859,47 +1340,53 @@ Index: kommander/widgets/textbrowser.cpp
 +#include "kommanderplugin.h"
  #include <specials.h>
  #include "textbrowser.h"
--
-+/*
+ 
 +enum Functions {
 +  FirstFunction = 420,
-+  TBR_scrollToAnchor,
++  TBR_setNotifyClick,
++  TBR_isNotifyClick,
 +  LastFunction
 +};
-+*/
++
  TextBrowser::TextBrowser(QWidget * a_parent, const char *a_name)
    : KTextBrowser(a_parent, a_name), KommanderWidget((QObject *) this)
  {
-@@ -29,6 +40,8 @@
+@@ -29,6 +41,9 @@
    states << "default";
    setStates(states);
    setDisplayStates(states);
-+//  KommanderPlugin::setDefaultGroup(Group::DCOP);
-+//  KommanderPlugin::registerFunction(TBR_scrollToAnchor, "scrollToAnchor(QString widget, QString name)",i18n("Scroll to an anchor in the form of <a href name=\"#anchor\">anchor</a>"), 2, 2);
++  KommanderPlugin::setDefaultGroup(Group::DCOP);
++  KommanderPlugin::registerFunction(TBR_setNotifyClick, "setNotifyClick(QString widget, bool Set)",i18n("Set notify click to intercept clicks and handle links"), 2, 2);
++  KommanderPlugin::registerFunction(TBR_isNotifyClick, "isNotifyClick(QString widget)",i18n("Set notify click to intercept clicks and handle links"), 1);
  }
  
  QString TextBrowser::currentState() const
-@@ -93,6 +106,7 @@
+@@ -92,7 +107,7 @@
+ 
  bool TextBrowser::isFunctionSupported(int f)
  {
-   return f == DCOP::text || f == DCOP::setText || f == DCOP::selection || f == DCOP::clear;
-+// || (f >= FirstFunction && f <= LastFunction);
+-  return f == DCOP::text || f == DCOP::setText || f == DCOP::selection || f == DCOP::clear;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::selection || f == DCOP::clear || (f >= FirstFunction && f <= LastFunction);
  }
  
  QString TextBrowser::handleDCOP(int function, const QStringList& args)
-@@ -105,6 +119,8 @@
+@@ -105,6 +120,12 @@
        break;
      case DCOP::selection:
        return selectedText();
-+//    case TBR_scrollToAnchor:
-+//      KTextBrowser::scrollToAnchor(args[0]);
++    case TBR_setNotifyClick:
++      KTextBrowser::setNotifyClick(args[0]);
++      break;
++    case TBR_isNotifyClick:
++      return QString::number(KTextBrowser::isNotifyClick());
++      break;
      case DCOP::clear:
        clear();
        break;
 Index: kommander/widgets/aboutdialog.cpp
 ===================================================================
---- kommander/widgets/aboutdialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/aboutdialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/aboutdialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/aboutdialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -224,6 +224,15 @@
    setAssociatedText(KommanderWidget::evalAssociatedText( populationText()));
  }
@@ -918,8 +1405,8 @@ Index: kommander/widgets/aboutdialog.cpp
    switch (function) {
 Index: kommander/widgets/textedit.cpp
 ===================================================================
---- kommander/widgets/textedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/textedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/textedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/textedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -30,6 +30,15 @@
  enum Functions {
    FirstFunction = 450, //CHANGE THIS NUMBER TO AN UNIQUE ONE!!!
@@ -1013,8 +1500,8 @@ Index: kommander/widgets/textedit.cpp
        QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
 Index: kommander/widgets/dialog.cpp
 ===================================================================
---- kommander/widgets/dialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/dialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/dialog.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/dialog.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -14,6 +14,7 @@
   *                                                                         *
   ***************************************************************************/
@@ -1085,8 +1572,8 @@ Index: kommander/widgets/dialog.cpp
    }
 Index: kommander/widgets/spinboxint.h
 ===================================================================
---- kommander/widgets/spinboxint.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/spinboxint.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/spinboxint.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/spinboxint.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -56,8 +56,12 @@
  signals:
    void widgetOpened();
@@ -1102,8 +1589,8 @@ Index: kommander/widgets/spinboxint.h
  
 Index: kommander/widgets/lineedit.h
 ===================================================================
---- kommander/widgets/lineedit.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/lineedit.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/lineedit.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/lineedit.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -60,10 +60,12 @@
    void widgetTextChanged(const QString &);
    void contextMenuRequested(int xpos, int ypos);
@@ -1119,8 +1606,8 @@ Index: kommander/widgets/lineedit.h
  
 Index: kommander/widgets/execbutton.h
 ===================================================================
---- kommander/widgets/execbutton.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/execbutton.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/execbutton.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/execbutton.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -77,8 +77,10 @@
  signals:
    void widgetOpened();
@@ -1133,10 +1620,36 @@ Index: kommander/widgets/execbutton.h
    // Whether output from process should be put in real stdout
    bool m_writeStdout;
    // Whether pressing execubtton should block GUI until process ends
+Index: kommander/widgets/toolbox.cpp
+===================================================================
+--- kommander/widgets/toolbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/toolbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -121,7 +121,7 @@
+ 
+ bool ToolBox::isFunctionSupported(int f)
+ {
+-  return f == DCOP::count || (f >= FIRST_FUNCTION && f <=  LAST_FUNCTION) ;
++  return f == DCOP::count || f == DCOP::geometry || (f >= FIRST_FUNCTION && f <=  LAST_FUNCTION) ;
+ }
+ 
+ QString ToolBox::handleDCOP(int function, const QStringList& args)
+@@ -176,6 +176,12 @@
+     }
+     case DCOP::count:
+       return QString::number(count());
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
+     default:
+       return KommanderWidget::handleDCOP(function, args);
+   }
 Index: kommander/widgets/table.h
 ===================================================================
---- kommander/widgets/table.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/table.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/table.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/table.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -52,12 +52,14 @@
      virtual QString handleDCOP(int function, const QStringList& args);
      virtual bool isFunctionSupported(int function);
@@ -1154,8 +1667,8 @@ Index: kommander/widgets/table.h
    private:
 Index: kommander/widgets/spinboxint.cpp
 ===================================================================
---- kommander/widgets/spinboxint.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/spinboxint.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/spinboxint.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/spinboxint.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -87,9 +87,21 @@
    emit widgetOpened();
  }
@@ -1175,14 +1688,20 @@ Index: kommander/widgets/spinboxint.cpp
  bool SpinBoxInt::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::setText || f == DCOP::setMaximum;
-+  return f == DCOP::text || f == DCOP::setText || f == DCOP::setMaximum || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::setMaximum  || f == DCOP::geometry|| f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
  }
  
  QString SpinBoxInt::handleDCOP(int function, const QStringList& args)
-@@ -103,6 +115,16 @@
+@@ -103,6 +115,22 @@
      case DCOP::setMaximum:
        setMaxValue(args[0].toUInt());
        break;
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
@@ -1198,8 +1717,8 @@ Index: kommander/widgets/spinboxint.cpp
    }
 Index: kommander/widgets/lineedit.cpp
 ===================================================================
---- kommander/widgets/lineedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/lineedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/lineedit.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/lineedit.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -46,6 +46,12 @@
    emit gotFocus();
  }
@@ -1207,7 +1726,7 @@ Index: kommander/widgets/lineedit.cpp
 +void LineEdit::focusOutEvent( QFocusEvent * e)
 +{
 +  QLineEdit::focusOutEvent(e);
-+  emit gotFocus();
++  emit lostFocus();
 +}
 +
  QString LineEdit::currentState() const
@@ -1241,8 +1760,8 @@ Index: kommander/widgets/lineedit.cpp
    }
 Index: kommander/widgets/aboutdialog.h
 ===================================================================
---- kommander/widgets/aboutdialog.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/aboutdialog.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/aboutdialog.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/aboutdialog.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -43,6 +43,7 @@
  
  public slots:
@@ -1253,8 +1772,8 @@ Index: kommander/widgets/aboutdialog.h
    void initialize(const QString& appName, const QString &icon, const QString& version, const QString& copyright);  
 Index: kommander/widgets/scriptobject.h
 ===================================================================
---- kommander/widgets/scriptobject.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/scriptobject.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/scriptobject.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/scriptobject.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -52,6 +52,7 @@
    virtual void populate();
    virtual void execute();
@@ -1265,8 +1784,8 @@ Index: kommander/widgets/scriptobject.h
    virtual void execute(bool);
 Index: kommander/widgets/groupbox.cpp
 ===================================================================
---- kommander/widgets/groupbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/groupbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/groupbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/groupbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -23,11 +23,14 @@
  #include <qevent.h>
  #include <qgroupbox.h>
@@ -1287,15 +1806,21 @@ Index: kommander/widgets/groupbox.cpp
  bool GroupBox::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::setText;
-+  return f == DCOP::text || f == DCOP::setText || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::geometry || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
 +// || (f >= FirstFunction && f <= LastFunction);
  }
  
  QString GroupBox::handleDCOP(int function, const QStringList& args)
-@@ -122,6 +126,16 @@
+@@ -122,6 +126,22 @@
      case DCOP::setText:
        setTitle(args[0]);
        break;
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
@@ -1311,14 +1836,14 @@ Index: kommander/widgets/groupbox.cpp
    }
 Index: kommander/widgets/combobox.cpp
 ===================================================================
---- kommander/widgets/combobox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/combobox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/combobox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/combobox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -30,7 +30,7 @@
  #include "combobox.h"
  
  enum Functions {
 -  FirstFunction = 355, //CHANGE THIS NUMBER TO AN UNIQUE ONE!!!
-+  FirstFunction = 357, //CHANGE THIS NUMBER TO AN UNIQUE ONE!!!
++  FirstFunction = 353, //CHANGE THIS NUMBER TO AN UNIQUE ONE!!!
    popupList,
    LastFunction
  };
@@ -1350,8 +1875,8 @@ Index: kommander/widgets/combobox.cpp
        break;
 Index: kommander/widgets/statusbar.cpp
 ===================================================================
---- kommander/widgets/statusbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/statusbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/statusbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/statusbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -91,7 +91,7 @@
  
  bool StatusBar::isFunctionSupported(int f)
@@ -1378,10 +1903,107 @@ Index: kommander/widgets/statusbar.cpp
      default:
        return KommanderWidget::handleDCOP(function, args);
    }
+Index: kommander/widgets/tabwidget.cpp
+===================================================================
+--- kommander/widgets/tabwidget.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/tabwidget.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -23,6 +23,7 @@
+ #include <qstringlist.h>
+ #include <qevent.h>
+ #include <qtabwidget.h>
++#include <qtabbar.h>
+ 
+ /* OTHER INCLUDES */
+ #include <kommanderwidget.h>
+@@ -31,8 +32,13 @@
+ #include "tabwidget.h"
+ 
+ enum Functions {
+-  FirstFunction = 355,
++  FirstFunction = 357,
+   TAB_setTabIcon,
++  TAB_tabLabel,
++  TAB_isTabEnabled,
++  TAB_setTabEnabled,
++  TAB_showTabBar,
++  TAB_setCurrentPage,
+   LastFunction
+ };
+ 
+@@ -46,6 +52,11 @@
+ 
+   KommanderPlugin::setDefaultGroup(Group::DCOP);
+   KommanderPlugin::registerFunction(TAB_setTabIcon, "setTabIcon(QString widget, int Tab, QString Icon)", i18n("Sets an icon on the specified tab. Index is zero based."), 3);
++  KommanderPlugin::registerFunction(TAB_tabLabel, "tabLabel(QString widget, int Tab)", i18n("Returns the tab label at the given index. Index is zero based."), 2);
++  KommanderPlugin::registerFunction(TAB_isTabEnabled, "isTabEnabled(QString widget, int Tab)", i18n("Returns true if tab at specified index is enabled, otherwise returns false."), 2);
++  KommanderPlugin::registerFunction(TAB_setTabEnabled, "setTabEnabled(QString widget, int Tab, bool Enabled)", i18n("Sets the tab at the given index to enabled or disabled."), 3);
++  KommanderPlugin::registerFunction(TAB_showTabBar, "showTabBar(QString widget, bool Show)", i18n("Show or hide the tabs on the tab widget."), 2);
++  KommanderPlugin::registerFunction(TAB_setCurrentPage, "setCurrentPage(QString widget, QString Page)", i18n("Set the current page by name."), 2);
+ }
+ 
+ TabWidget::~TabWidget()
+@@ -115,12 +126,57 @@
+     case DCOP::insertTab:
+       insertTab(0L, args[0], args[1].toUInt());
+       break;
++    case TAB_tabLabel:
++    {
++      QString s = this->label(args[0].toInt());
++      return s.remove("&");
++      break;
++    }
+     case TAB_setTabIcon:
+     {
+       QWidget *w = page(args[0].toInt());
+       setTabIconSet(w, KGlobal::iconLoader()->loadIcon(args[1], KIcon::NoGroup, KIcon::SizeMedium));
+       break;
+     }
++    case TAB_isTabEnabled:
++    {
++      QWidget *w = page(args[0].toInt());
++      return QString::number(this->isTabEnabled(w));
++      break;
++    }
++    case TAB_setTabEnabled:
++    {
++      QWidget *w = page(args[0].toInt());
++      this->setTabEnabled(w, args[1].toInt());
++     break;
++    }
++    case TAB_setCurrentPage:
++    {
++      int cnt = this->count();
++      int i = 0;
++      bool found = false;
++      while (i < cnt) {
++        QString s = this->label(i);
++        if (s.remove("&") == args[0])
++        {
++          setCurrentPage(i);
++          found = true;
++          break;
++        }
++        i++;
++      }
++      return QString::number(found);
++      break;
++    }
++    case TAB_showTabBar:
++    {
++      QTabBar *t = this->tabBar();
++      if (args[0].toInt() == 1)
++        t->show();
++      else
++        t->hide();
++      break;
++    }
+     default:
+       return KommanderWidget::handleDCOP(function, args);
+   }
 Index: kommander/widgets/slider.cpp
 ===================================================================
---- kommander/widgets/slider.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/slider.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/slider.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/slider.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -84,7 +84,7 @@
  
  bool Slider::isFunctionSupported(int f)
@@ -1410,8 +2032,8 @@ Index: kommander/widgets/slider.cpp
    }
 Index: kommander/widgets/table.cpp
 ===================================================================
---- kommander/widgets/table.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/table.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/table.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/table.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -41,6 +41,8 @@
    TBL_setColumnReadOnly,
    TBL_setRowReadOnly,
@@ -1535,8 +2157,8 @@ Index: kommander/widgets/table.cpp
        QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
 Index: kommander/widgets/progressbar.cpp
 ===================================================================
---- kommander/widgets/progressbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/progressbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/progressbar.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/progressbar.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -14,6 +14,7 @@
   ***************************************************************************/
  
@@ -1613,8 +2235,8 @@ Index: kommander/widgets/progressbar.cpp
    }
 Index: kommander/widgets/scriptobject.cpp
 ===================================================================
---- kommander/widgets/scriptobject.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/scriptobject.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/scriptobject.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/scriptobject.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -126,6 +126,14 @@
    executeProcess(true);
  }
@@ -1632,8 +2254,8 @@ Index: kommander/widgets/scriptobject.cpp
    m_params.clear();
 Index: kommander/widgets/treewidget.h
 ===================================================================
---- kommander/widgets/treewidget.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/treewidget.h	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/treewidget.h	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/treewidget.h	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -68,6 +68,7 @@
    void showEvent(QShowEvent *e);
    void contextMenuEvent( QContextMenuEvent * e );
@@ -1644,21 +2266,27 @@ Index: kommander/widgets/treewidget.h
    QListViewItem* indexToItem(int index);
 Index: kommander/widgets/label.cpp
 ===================================================================
---- kommander/widgets/label.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/label.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/label.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/label.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -88,7 +88,7 @@
  
  bool Label::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::setText || f == DCOP::clear;
-+  return f == DCOP::text || f == DCOP::setText || f == DCOP::clear || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::clear || f == DCOP::geometry || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
  }
  
  QString Label::handleDCOP(int function, const QStringList& args)
-@@ -102,6 +102,16 @@
+@@ -102,6 +102,22 @@
      case DCOP::clear:
        setWidgetText("");
        break;
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
@@ -1674,8 +2302,8 @@ Index: kommander/widgets/label.cpp
    }
 Index: kommander/widgets/listbox.cpp
 ===================================================================
---- kommander/widgets/listbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/listbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/listbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/listbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -96,7 +96,7 @@
    return f == DCOP::text || f == DCOP::setText || f == DCOP::selection || f == DCOP::setSelection ||
      f == DCOP::insertItems || f == DCOP::insertItem || f == DCOP::removeItem || f == DCOP::clear ||
@@ -1704,21 +2332,27 @@ Index: kommander/widgets/listbox.cpp
    }
 Index: kommander/widgets/checkbox.cpp
 ===================================================================
---- kommander/widgets/checkbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/checkbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/checkbox.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/checkbox.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -102,7 +102,7 @@
  
  bool CheckBox::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::setText || f == DCOP::checked || f == DCOP::setChecked;
-+  return f == DCOP::text || f == DCOP::setText || f == DCOP::checked || f == DCOP::setChecked || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::checked || f == DCOP::setChecked || f == DCOP::geometry || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
  }
  
  void CheckBox::contextMenuEvent( QContextMenuEvent * e )
-@@ -125,6 +125,16 @@
+@@ -125,6 +125,22 @@
      case DCOP::setChecked:
        setChecked(args[0] != "false" && args[0] != "0");
        break;
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
@@ -1734,21 +2368,68 @@ Index: kommander/widgets/checkbox.cpp
    }
 Index: kommander/widgets/buttongroup.cpp
 ===================================================================
---- kommander/widgets/buttongroup.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/buttongroup.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
-@@ -97,7 +97,7 @@
+--- kommander/widgets/buttongroup.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/buttongroup.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
+@@ -14,6 +14,7 @@
+  *                                                                         *
+  ***************************************************************************/
+ /* KDE INCLUDES */
++#include <klocale.h>
+ 
+ /* QT INCLUDES */
+ #include <qobject.h>
+@@ -24,11 +25,19 @@
+ #include <qevent.h>
+ 
+ /* OTHER INCLUDES */
++#include <kommanderwidget.h>
++#include "kommanderplugin.h"
+ #include <specials.h>
+ #include "buttongroup.h"
+ 
+ #include "radiobutton.h" // include a button header for the compiler with dynamic cast below
+ 
++enum Functions {
++  FirstFunction = 720,
++  BG_selectedId,
++  LastFunction
++};
++
+ ButtonGroup::ButtonGroup(QWidget *a_parent, const char *a_name)
+ 	: QButtonGroup(a_parent, a_name), KommanderWidget(this)
+ {
+@@ -37,6 +46,9 @@
+   states << "unchecked";
+   setStates(states);
+   setDisplayStates(states);
++  
++  KommanderPlugin::setDefaultGroup(Group::DCOP);
++  KommanderPlugin::registerFunction(BG_selectedId, "selectedId(QString widget)", i18n("Returns the ID of the selected button."), 1);
+ 
+ }
+ 
+@@ -97,7 +109,7 @@
  
  bool ButtonGroup::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::checked || f == DCOP::setChecked;
-+  return f == DCOP::text || f == DCOP::checked || f == DCOP::setChecked || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::checked || f == DCOP::setChecked || f == DCOP::geometry || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor || (f >= FirstFunction && f <= LastFunction);
  }
      
  
-@@ -118,6 +118,16 @@
+@@ -118,6 +130,25 @@
        setCheckable(true);
        setChecked(args[0] != "false");
        break;
++    case BG_selectedId:
++      return QString::number(this->selectedId() );
++      break;
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
@@ -1764,21 +2445,27 @@ Index: kommander/widgets/buttongroup.cpp
    }
 Index: kommander/widgets/radiobutton.cpp
 ===================================================================
---- kommander/widgets/radiobutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 970539)
-+++ kommander/widgets/radiobutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 970539)
+--- kommander/widgets/radiobutton.cpp	(.../tags/KDE/3.5.10/kdewebdev)	(revision 1007405)
++++ kommander/widgets/radiobutton.cpp	(.../branches/KDE/3.5/kdewebdev)	(revision 1007405)
 @@ -101,7 +101,7 @@
  
  bool RadioButton::isFunctionSupported(int f)
  {
 -  return f == DCOP::text || f == DCOP::setText || f == DCOP::setChecked || f == DCOP::checked;
-+  return f == DCOP::text || f == DCOP::setText || f == DCOP::setChecked || f == DCOP::checked || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
++  return f == DCOP::text || f == DCOP::setText || f == DCOP::setChecked || f == DCOP::checked || f == DCOP::geometry || f == DCOP::getBackgroundColor || f == DCOP::setBackgroundColor;
  }
  
  QString RadioButton::handleDCOP(int function, const QStringList& args)
-@@ -117,6 +117,16 @@
+@@ -117,6 +117,22 @@
        break;
      case DCOP::checked:
        return QString::number(isOn());
++    case DCOP::geometry:
++    {
++      QString geo = QString::number(this->x())+" "+QString::number(this->y())+" "+QString::number(this->width())+" "+QString::number(this->height());
++      return geo;
++      break;
++    }
 +    case DCOP::getBackgroundColor:
 +      return this->paletteBackgroundColor().name();
 +      break;
