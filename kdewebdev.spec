@@ -17,6 +17,7 @@ Group:		X11/Development/Tools
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	7188f351158ca5a7613c3de4a6854b37
 Source1:	%{name}-kommandersplash.png
+# Source1-md5:  9c6fa550ca36a63bd15cd83cdd98f9ba
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-quanta.patch
