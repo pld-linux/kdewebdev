@@ -297,11 +297,11 @@ características.
 
 %prep
 %setup -q
-%patch100 -p0
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P100 -p0
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 install %{SOURCE1} kommander/editor/pics/kommandersplash.png
 
